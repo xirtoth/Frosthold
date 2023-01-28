@@ -1,0 +1,15 @@
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\bin\Debug\net6.0\Frosthold.exe
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\bin\Debug\net6.0\Frosthold.deps.json
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\bin\Debug\net6.0\Frosthold.runtimeconfig.json
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\bin\Debug\net6.0\Frosthold.dll
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\bin\Debug\net6.0\Frosthold.pdb
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.csproj.AssemblyReference.cache
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.GeneratedMSBuildEditorConfig.editorconfig
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.AssemblyInfoInputs.cache
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.AssemblyInfo.cs
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.csproj.CoreCompileInputs.cache
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.dll
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\refint\Frosthold.dll
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.pdb
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.genruntimeconfig.cache
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\ref\Frosthold.dll
