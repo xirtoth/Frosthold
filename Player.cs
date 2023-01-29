@@ -24,10 +24,12 @@ namespace Frosthold {
             this.MaxHealth = 100;
         }
 
+        //liikutetaan pelaajaa x ja y muuttujien mukaisesti
         public void MovePlayer(int x, int y)
         {
             this.Pos.x += x;
             this.Pos.y += y;
+            //tarkastetaan että ei mennä ruudun yli
             if(Pos.x >= GameController.Instance.screen.Width-1)
             {
                 Pos.x = GameController.Instance.screen.Width-1;

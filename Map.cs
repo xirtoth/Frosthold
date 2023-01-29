@@ -29,6 +29,7 @@ namespace Frosthold
             this.MapArray = new TileTypes[width+1, height+1];
             this.RoomsList = new List<Room>();
         }
+        //luodaan map itemi. ja määritellään seinät
         public void GenerateMap()
         {
             Random rand = new Random();
@@ -43,6 +44,7 @@ namespace Frosthold
                 MapArray[Height, i] = TileTypes.wall;
             }
 
+            //tehdään huoneita mappiin. Katsotaan, jos huoneet ovat päällekkäisiä, jos näin on yritetään luoda uusi huone (hieman rikki)
             for (int i = 0; i < Rooms; i++)
             {
                 Room room = new Room(3, 6);
@@ -67,7 +69,8 @@ namespace Frosthold
             }
         }
 
-            public void CopyToMapArray(TileTypes[,] mapArray, Room room)
+        //kopiodaan huoneen arvot mapArrray muuttujaan    
+        public void CopyToMapArray(TileTypes[,] mapArray, Room room)
         {
             
             for (int x = room.room.X; x < room.room.X + room.room.Width; x++)

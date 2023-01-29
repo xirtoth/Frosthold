@@ -26,12 +26,14 @@
 
         }
 
+        //asetetaan kursori pelaajan sijaintiin ja tulostetaan @
         public void PrintPlayer()
         {
             Console.SetCursorPosition(player.Pos.x, player.Pos.y);
             Write("@");
         }
 
+        //käydään läpi map array ja tulostetaan # jokaiseen kohtaa jossa on seinä (ei toimi täysin)
         public void PrintMap()
         {
            // Console.WriteLine(map.Width + map.Height);
@@ -53,6 +55,7 @@
             }  
         }
         
+        //tulostetaan jokanen entity ruudulle
         public void PrintEntities()
         {
             foreach(Entity e in entities)
@@ -62,6 +65,7 @@
             }
         }
 
+        //tyhjennetään ruutu ja tulostetaan kaikki tarvittava ruudulle.
         public void UpdateScreen()
         {
             Clear();
@@ -71,16 +75,19 @@
             PrintPlayerStats();
         }
 
+        //tulostetaan pelaajan nimi health(myöhemmin lisää) ruudun alareunaan
         public void PrintPlayerStats()
         {
             Console.SetCursorPosition(0, Console.WindowHeight-1);
             Write(player.PlayerName + " " + player.Health + "/" + player.MaxHealth);
         }
+        //tyhjennetään ruutu
         public void Clear()
         {
             Console.Clear();
         }
 
+        //tulostetaan teksti ruudulle tietyllä värillä
         public void Write(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -88,6 +95,7 @@
             Console.ResetColor();
         }
 
+        //tulostetaan teksti ruudulle normaalilla värillä
         public static void Write(string text)
         {
             

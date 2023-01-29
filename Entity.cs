@@ -43,12 +43,15 @@ namespace Frosthold
             this.type = EntityType.monster;
         }
 
+        //liikutetaan entityä
         public void MoveEntity(int x, int y)
         {
+            //tarkastetaan onko esteitä (tätä voi parantaa)
             if (CheckCollision(x, y))
             {
                 return;
             }
+            //asetetaan entityn x ja y arvo lisäämällä parametrinä saadut x ja y. tarkastetaan myös, että ei mennä ruudun ulkopuolelle
             this.Pos.x += x;
             this.Pos.y += y;
             if (Pos.x >= GameController.Instance.screen.Width - 2)
@@ -71,12 +74,14 @@ namespace Frosthold
         
         }
 
+        //asetetaan entityn piste
         public void SetEntityPosition(int x, int y)
         {
             this.Pos.x = x;
             this.Pos.y = y;
         }
 
+        //tarkastetaan onko ruudussa johon ollaan liikkumassa toinen entity. Palatetaan true jos näin on (Tähän tarvii paljon lisää tarkastuksia tulevaisuudessa)
         private bool CheckCollision(int x, int y)
         {
             foreach(Entity e in GameController.Instance.entities)

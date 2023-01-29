@@ -19,7 +19,8 @@ namespace Frosthold
             this.height = height;
         }
     
-    public void GenerateRoom()
+    //tehdään uusi huone. (tällähetkellä testitilassa)
+        public void GenerateRoom()
         {
             Random rand = new Random();
             int randomX = rand.Next(0, 20);

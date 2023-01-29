@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace Frosthold
             entities = new List<Entity>();
         }
 
+        //Luodaan tarvittavat muuttujat
         public void Init()
         {
 
@@ -74,6 +76,7 @@ namespace Frosthold
             }
         }
 
+        //otetaan pelaajalta syöte ja palautetaan se ConsoleKeyInfo muodossa
         private static ConsoleKeyInfo ReadInput()
         {
             var key = Console.ReadKey(true);
@@ -81,6 +84,7 @@ namespace Frosthold
             return key;
         }
 
+       //pelin looppi
         public void Start()
         {
             while(running == true)
@@ -88,10 +92,13 @@ namespace Frosthold
 
                 
                 //player.MovePlayer(1, 0);
+                //päivitetään ruutu
                 screen.UpdateScreen();
                 //var input = ReadInput();
                 //ip.ParseInput(input, player);
+                //liikutetaan vihollisia
                 MoveEnemies(entities);
+                //testausta varten odotetaan sekuntti kunnes jatketaan looppia
                 Thread.Sleep(1000);
                 
 
@@ -116,6 +123,7 @@ namespace Frosthold
             }
         }
 
+        //tätä voidaan käyttää, jos halutaan, että tiettyjen liikkeiden jälkeen tapahtuu jotain (tällähetkellä hain testaamis metodi)
         private void CheckRandomEvents()
         {
             Random rand = new Random();
@@ -125,6 +133,7 @@ namespace Frosthold
             }
         }
 
+        //käydään läpi entity lista, ja jos entity on Monster. Voidaan laittaa se tekemään erinäisiä toimintoja.
         private void MoveEnemies(List<Entity> entities)
         {
             Random rand = new Random();
@@ -138,6 +147,7 @@ namespace Frosthold
             }
         }
 
+        //pistetaan enity listasta
         public void RemoveEntity(Entity entity)
         {
             Console.Write("Removing " + entity.name + ".");
