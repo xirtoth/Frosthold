@@ -81,7 +81,7 @@ namespace Frosthold
                 MapArray[y, room.room.X] = TileTypes.wall;
                 MapArray[y, room.room.X + room.room.Width - 1] = TileTypes.wall;
             }
-            Console.WriteLine(mapArray);
+           // Console.WriteLine(mapArray);
         }
 
     }
