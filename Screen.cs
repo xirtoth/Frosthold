@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Frosthold
 {
     public class Screen
     {
@@ -85,6 +87,14 @@
         public void Clear()
         {
             Console.Clear();
+        }
+
+        public void MoveCursor(int x, int y)
+        {
+            Console.CursorVisible = true;
+            var cursorLeft = Console.CursorLeft;
+            var cursorTop = Console.CursorTop;
+            Console.SetCursorPosition(cursorLeft + x, cursorTop + y);
         }
 
         //tulostetaan teksti ruudulle tietyllä värillä

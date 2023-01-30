@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Frosthold
+{
+    public class InspectKeyBinds : KeyBinds
+
+    {
+        public GameController gc;
+        private Screen screen;
+        public InspectKeyBinds(Player player, Screen screen) : base(new InputParser(), player)
+        {
+            this.gc = GameController.Instance;
+            this.screen = screen;
+            AddBinds();
+            
+        }
+
+        private void AddBinds()
+        {
+            this.ip.AddKey(ConsoleKey.Spacebar, () => gc.inspecting = false);
+            
+
+            ip.AddKey(ConsoleKey.RightArrow, () => screen.MoveCursor(1, 0));
+            ip.AddKey(ConsoleKey.LeftArrow, () => screen.MoveCursor(-1, 0));
+            ip.AddKey(ConsoleKey.UpArrow, () => screen.MoveCursor(0, -1));
+            ip.AddKey(ConsoleKey.DownArrow, () => screen.MoveCursor(0, 1));
+           
+        }
+    }
+}

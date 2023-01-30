@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,13 +11,17 @@ namespace Frosthold
 {
     public class GameController
     {
-        public static GameController Instance { get; set; }
+        public static GameController? Instance { get; set; }
         Player player;
         public List<Entity> entities { get; set; }
         public int frames { get; set; }
         public Screen screen;
         private InputParser ip;
+        public InspectKeyBinds ikb { get; set; }
+        public MainInputs mkb { get; set; }
         public Map map;
+        public KeyBinds mainKeys;
+        public bool inspecting { get; set; }
         
         public bool running { get; set; }
         public GameController()
@@ -29,6 +34,7 @@ namespace Frosthold
         public void Init()
         {
 
+            this.inspecting = false;
             Random rnd = new Random();
             GenerateLevel();
             Entity e = new Entity("jorma", "jorma on iso paha mörkö", "J", new Position(10, 10), ConsoleColor.Red);
@@ -48,7 +54,11 @@ namespace Frosthold
             screen = new Screen(50, 50, player, entities, map);
             this.running = true;
             this.frames = 0;
-            this.ip = new InputParser();
+            this.mkb = new MainInputs(player, screen);
+            this.ikb = new InspectKeyBinds(player, screen);
+            
+            this.mainKeys = new KeyBinds(this.ip, player);
+            //ip.AddKey(ConsoleKey.K, () => player.MovePlayer(1, 1));
         }
 
         private void GenerateLevel()
@@ -94,12 +104,12 @@ namespace Frosthold
                 //player.MovePlayer(1, 0);
                 //päivitetään ruutu
                 screen.UpdateScreen();
-                //var input = ReadInput();
-                //ip.ParseInput(input, player);
+                var input = ReadInput().Key;
+                mkb.ip.ParseInput(input);
                 //liikutetaan vihollisia
                 MoveEnemies(entities);
                 //testausta varten odotetaan sekuntti kunnes jatketaan looppia
-                Thread.Sleep(1000);
+                //Thread.Sleep(1000);
                 
 
                 frames++;
@@ -152,6 +162,30 @@ namespace Frosthold
         {
             Console.Write("Removing " + entity.name + ".");
             entities.Remove(entity);
+        }
+
+        public void Inspect()
+        {
+            inspecting = true;
+            Console.SetCursorPosition(player.Pos.x, player.Pos.y);
+            Console.CursorVisible = true;
+            while(inspecting)
+            {
+                
+                var input = ReadInput();
+                ikb.ip.ParseInput(input.Key);
+               
+                foreach (Entity e in entities)
+                {
+                    if (e.Pos.x == Console.CursorLeft && e.Pos.y == Console.CursorTop)
+                    {
+                        var cursorOldPosition = Console.GetCursorPosition();
+                        Console.SetCursorPosition(25, 25);
+                        Screen.Write(e.name + " " + e.description);
+                        Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
+                    }
+                }
+            }
         }
     }
 }
