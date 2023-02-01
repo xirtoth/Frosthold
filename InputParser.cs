@@ -21,14 +21,14 @@ namespace Frosthold
         }
         public void ParseInput(ConsoleKey key)
         {
-           
 
-            if(keyMap.ContainsKey(key))
+
+            if (keyMap.ContainsKey(key))
             {
                 keyMap[key]();
             }
 
-          
+
         }
     }
 }

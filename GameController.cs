@@ -12,7 +12,7 @@ namespace Frosthold
     public class GameController
     {
         public static GameController? Instance { get; set; }
-        public Player player;
+        public Player? player;
         public List<Entity> entities { get; set; }
         public int frames { get; set; }
         public Screen screen;
@@ -100,40 +100,28 @@ namespace Frosthold
             while(running == true)
             {
 
-                
-                //player.MovePlayer(1, 0);
-                //päivitetään ruutu
-                screen.UpdateScreen();
+
+
                 var input = ReadInput().Key;
                 mkb.ip.ParseInput(input);
+                
+               
                 //liikutetaan vihollisia
                 MoveEnemies(entities);
-                //testausta varten odotetaan sekuntti kunnes jatketaan looppia
-                //Thread.Sleep(1000);
+               
                 
+                screen.UpdateScreen();
+
 
                 frames++;
                 
-              /*  if(frames == 2)
-                {
-                    List<Entity> tempEntities = entities;
-                    for(int i = entities.Count - 1; i >= 0; i--) 
-                    {
-                        if(entities[i] is Monster)
-                        {
-
-                            Monster monster = (Monster)entities[i];
-                            monster.Die();
-                            
-                        }
-                    }
-                }*/
+         
                 
 
             }
         }
 
-        //tätä voidaan käyttää, jos halutaan, että tiettyjen liikkeiden jälkeen tapahtuu jotain (tällähetkellä hain testaamis metodi)
+        //tätä voidaan käyttää, jos halutaan, että tiettyjen liikkeiden jälkeen tapahtuu jotain (tällähetkellä vain testaamis metodi)
         private void CheckRandomEvents()
         {
             Random rand = new Random();
@@ -159,7 +147,7 @@ namespace Frosthold
             }
         }
 
-        //pistetaan enity listasta
+        //poistetaan enity listasta
         public void RemoveEntity(Entity entity)
         {
             screen.RemoveMark(entity.Pos.x, entity.Pos.y);

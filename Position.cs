@@ -16,7 +16,7 @@ namespace Frosthold
             this.x = x;
             this.y = y;
         }
-    
+
         public int GetX()
         {
             return this.x;

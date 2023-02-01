@@ -17,14 +17,10 @@ namespace Frosthold
             this.ip = ip;
             this.gc = GameController.Instance;
             this.player = this.gc.player;
-            
-            AddBinds();
-        }
-
-        private void AddBinds()
-        {
 
            
         }
+
+      
     }
 }

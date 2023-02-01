@@ -28,15 +28,15 @@ namespace Frosthold
             Console.WindowHeight = Console.LargestWindowHeight;
             Console.WindowWidth = Console.LargestWindowWidth;
             //Console.SetWindowSize(100,50);
-            Console.SetBufferSize(Console.LargestWindowWidth*2,Console.LargestWindowHeight*2);
+            Console.SetBufferSize(Console.LargestWindowWidth * 2, Console.LargestWindowHeight * 2);
             Console.SetWindowPosition(0, 0);
             IntPtr consoleWindow = GetConsoleWindow();
-            if(consoleWindow != IntPtr.Zero)
+            if (consoleWindow != IntPtr.Zero)
             {
                 ShowWindow(consoleWindow, 3);
             }
             PrintMap();
-            
+
 
 
         }
@@ -51,8 +51,8 @@ namespace Frosthold
         //käydään läpi map array ja tulostetaan # jokaiseen kohtaa jossa on seinä (ei toimi täysin)
         public void PrintMap()
         {
-           // Console.WriteLine(map.Width + map.Height);
-            for(int i = 1; i < map.MapArray.GetLength(0); i++)
+            // Console.WriteLine(map.Width + map.Height);
+            for (int i = 1; i < map.MapArray.GetLength(0); i++)
             {
                 for (int k = 1; k < map.MapArray.GetLength(1); k++)
                 {
@@ -61,19 +61,25 @@ namespace Frosthold
                          Console.SetCursorPosition(i, k);
                          Write("#");
                      }*/
-                    if (map.MapArray[i,k] == TileTypes.wall)
+                    if (map.MapArray[i, k] == TileTypes.wall)
                     {
-                        Console.SetCursorPosition(i-1, k-1);
+                        Console.SetCursorPosition(i - 1, k - 1);
                         Write("#");
                     }
-                } 
-            }  
+
+                    if (map.MapArray[i, k] == TileTypes.floor)
+                    {
+                        Console.SetCursorPosition(i - 1, k - 1);
+                        Write(" ");
+                    }
+                }
+            }
         }
-        
+
         //tulostetaan jokanen entity ruudulle
         public void PrintEntities()
         {
-            foreach(Entity e in entities)
+            foreach (Entity e in entities)
             {
                 Console.SetCursorPosition(e.Pos.x, e.Pos.y);
                 Write(e.mark, e.color);
@@ -83,25 +89,25 @@ namespace Frosthold
         //tyhjennetään ruutu ja tulostetaan kaikki tarvittava ruudulle.
         public void UpdateScreen()
         {
-            Clear();
-            PrintMap();
+            //Clear();
+            //PrintMap();
             PrintPlayer();
             PrintEntities();
             PrintPlayerStats();
-            
-            
+
+
         }
 
         //tulostetaan pelaajan nimi health(myöhemmin lisää) ruudun alareunaan
         public void PrintPlayerStats()
         {
-            Console.SetCursorPosition(0, Console.WindowHeight-1);
+            Console.SetCursorPosition(0, Console.WindowHeight - 1);
             Write(player.PlayerName + " " + player.Health + "/" + player.MaxHealth);
         }
         //tyhjennetään ruutu
         public void Clear()
         {
-           // Console.Clear();
+            // Console.Clear();
         }
 
         public void MoveCursor(int x, int y)
@@ -130,8 +136,8 @@ namespace Frosthold
         //tulostetaan teksti ruudulle normaalilla värillä
         public static void Write(string text)
         {
-            
-            
+
+
             Console.Write(text);
         }
 
@@ -143,5 +149,5 @@ namespace Frosthold
         }
     }
 
-  
+
 }

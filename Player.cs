@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Frosthold {
+namespace Frosthold
+{
 
 
 
@@ -14,7 +15,7 @@ namespace Frosthold {
         public string PlayerName { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-        
+
 
         public Player(int x, int y, string name)
         {
@@ -27,29 +28,29 @@ namespace Frosthold {
         //liikutetaan pelaajaa x ja y muuttujien mukaisesti
         public void MovePlayer(int x, int y)
         {
-            
-            if(CheckCollision(x, y))
+
+            if (CheckCollision(x, y))
             {
                 return;
             }
             GameController.Instance.screen.RemoveMark(this.Pos.x, this.Pos.y);
-            
+
             this.Pos.x += x;
             this.Pos.y += y;
             //tarkastetaan että ei mennä ruudun yli
-            if(Pos.x >= GameController.Instance.screen.Width-1)
+            if (Pos.x >= GameController.Instance.screen.Width - 1)
             {
-                Pos.x = GameController.Instance.screen.Width-1;
+                Pos.x = GameController.Instance.screen.Width - 1;
             }
-            if(Pos.x <= 0)
+            if (Pos.x <= 0)
             {
                 Pos.x = 0;
             }
-            if(Pos.y >= GameController.Instance.screen.Height-1)
+            if (Pos.y >= GameController.Instance.screen.Height - 1)
             {
-                Pos.y = GameController.Instance.screen.Height-1;
+                Pos.y = GameController.Instance.screen.Height - 1;
             }
-            if(Pos.y <= 0)
+            if (Pos.y <= 0)
             {
                 Pos.y = 0;
             }
@@ -57,8 +58,8 @@ namespace Frosthold {
 
         private bool CheckCollision(int x, int y)
         {
-           
-            foreach(Entity e in GameController.Instance.entities)
+
+            foreach (Entity e in GameController.Instance.entities)
             {
                 if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
                 {
