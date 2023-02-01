@@ -10,11 +10,12 @@ namespace Frosthold
 
     public enum TileTypes
     {
-        floor, wall
+        floor, wall,
+        door
     }
     public class Map
     {
-      
+
         public int Width { get; set; }
         public int Height { get; set; }
         private int Rooms { get; set; }
@@ -26,31 +27,32 @@ namespace Frosthold
             this.Width = width;
             this.Height = height;
             this.Rooms = rooms;
-            this.MapArray = new TileTypes[width+1, height+1];
+            this.MapArray = new TileTypes[width + 1, height + 1];
             this.RoomsList = new List<Room>();
         }
         //luodaan map itemi. ja määritellään seinät
         public void GenerateMap()
         {
             Random rand = new Random();
-            for (int i = 0; i < Width; i++)
-            {
-                MapArray[1, i] = TileTypes.wall;
-                MapArray[Width, i] = TileTypes.wall;
-            }
             for (int i = 0; i < Height; i++)
             {
-                MapArray[i, 1] = TileTypes.wall;
-                MapArray[Height, i] = TileTypes.wall;
+                MapArray[i, 0] = TileTypes.wall;
+                MapArray[i, Width - 1] = TileTypes.wall;
+            }
+            for (int i = 0; i < Width; i++)
+            {
+                MapArray[0, i] = TileTypes.wall;
+                MapArray[Height - 1, i] = TileTypes.wall;
             }
 
             //tehdään huoneita mappiin. Katsotaan, jos huoneet ovat päällekkäisiä, jos näin on yritetään luoda uusi huone (hieman rikki)
+            bool intersects = true;
             for (int i = 0; i < Rooms; i++)
             {
-                Room room = new Room(3, 6);
+                Room room = new Room(rand.Next(3, 8), rand.Next(3, 8));
                 room.GenerateRoom();
                 RoomsList.Add(room);
-                bool intersects = false;
+                intersects = true;
                 while (intersects)
                 {
                     intersects = false;
@@ -60,19 +62,25 @@ namespace Frosthold
                         if (room.room.IntersectsWith(RoomsList[j].room))
                         {
                             room.GenerateRoom();
-                            intersects = false;
+                            intersects = true;
                             break;
                         }
                     }
+
                 }
+
+
                 CopyToMapArray(MapArray, room);
+
+
             }
         }
 
         //kopiodaan huoneen arvot mapArrray muuttujaan    
         public void CopyToMapArray(TileTypes[,] mapArray, Room room)
         {
-            
+
+
             for (int x = room.room.X; x < room.room.X + room.room.Width; x++)
             {
                 MapArray[room.room.Y, x] = TileTypes.wall;
@@ -84,7 +92,7 @@ namespace Frosthold
                 MapArray[y, room.room.X] = TileTypes.wall;
                 MapArray[y, room.room.X + room.room.Width - 1] = TileTypes.wall;
             }
-           // Console.WriteLine(mapArray);
+
         }
 
     }

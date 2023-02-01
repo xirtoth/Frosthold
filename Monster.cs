@@ -11,11 +11,11 @@ namespace Frosthold
         public int Health { get; set; }
         public int MaxHealth { get; set; }
         public int Damage { get; set; }
-        
+
         //perus constructori käytetään entity luokaa pohjana.
         public Monster(string name, string description, string mark, Position pos) : base(name, description, mark, pos)
         {
-        //lisätään default valuet
+            //lisätään default valuet
         }
 
         //toinen constuctori, jossa määritellän myös health, maxHealth, damage(paljonko vahinkoa vihollinen tekee)
@@ -36,7 +36,7 @@ namespace Frosthold
         //tarkastetaan onko health 0, jos näin on kutsutaan Die() funktiota
         private void CheckHealth()
         {
-            if(Health <= 0)
+            if (Health <= 0)
             {
                 Die();
             }
