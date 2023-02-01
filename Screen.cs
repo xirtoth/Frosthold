@@ -1,9 +1,15 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Numerics;
+using System.Runtime.InteropServices;
 
 namespace Frosthold
 {
     public class Screen
     {
+        [DllImport("kernel32.dll", ExactSpelling = true)]
+        private static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
         public int Width { get; set; }
         public int Height { get; set; }
 
@@ -19,10 +25,17 @@ namespace Frosthold
             this.entities = entities;
             this.map = map;
             Console.CursorVisible = false;
-            
-            Console.SetWindowSize(100,50);
-            Console.SetBufferSize(100,50);
+            Console.WindowHeight = Console.LargestWindowHeight;
+            Console.WindowWidth = Console.LargestWindowWidth;
+            //Console.SetWindowSize(100,50);
+            Console.SetBufferSize(Console.LargestWindowWidth*2,Console.LargestWindowHeight*2);
             Console.SetWindowPosition(0, 0);
+            IntPtr consoleWindow = GetConsoleWindow();
+            if(consoleWindow != IntPtr.Zero)
+            {
+                ShowWindow(consoleWindow, 3);
+            }
+            PrintMap();
             
 
 
@@ -39,9 +52,9 @@ namespace Frosthold
         public void PrintMap()
         {
            // Console.WriteLine(map.Width + map.Height);
-            for(int i = 1; i < map.Width; i++)
+            for(int i = 1; i < map.MapArray.GetLength(0); i++)
             {
-                for (int k = 1; k < map.Height; k++)
+                for (int k = 1; k < map.MapArray.GetLength(1); k++)
                 {
                     /* if (i == 0 || i == map.Width-1|| k == 0 || k == map.Height-1)
                      {
@@ -75,6 +88,8 @@ namespace Frosthold
             PrintPlayer();
             PrintEntities();
             PrintPlayerStats();
+            
+            
         }
 
         //tulostetaan pelaajan nimi health(myöhemmin lisää) ruudun alareunaan
@@ -86,7 +101,7 @@ namespace Frosthold
         //tyhjennetään ruutu
         public void Clear()
         {
-            Console.Clear();
+           // Console.Clear();
         }
 
         public void MoveCursor(int x, int y)
@@ -94,7 +109,14 @@ namespace Frosthold
             Console.CursorVisible = true;
             var cursorLeft = Console.CursorLeft;
             var cursorTop = Console.CursorTop;
-            Console.SetCursorPosition(cursorLeft + x, cursorTop + y);
+            if (cursorLeft > Console.LargestWindowWidth || cursorTop <= 0 || cursorLeft <= 0 || cursorTop > Console.LargestWindowHeight)
+            {
+                return;
+            }
+            else
+            {
+                Console.SetCursorPosition(cursorLeft + x, cursorTop + y);
+            }
         }
 
         //tulostetaan teksti ruudulle tietyllä värillä
@@ -109,7 +131,15 @@ namespace Frosthold
         public static void Write(string text)
         {
             
+            
             Console.Write(text);
+        }
+
+        internal void RemoveMark(int x, int y)
+        {
+            Console.CursorVisible = false;
+            Console.SetCursorPosition(x, y);
+            Console.Write(" ");
         }
     }
 

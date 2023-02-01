@@ -11,10 +11,10 @@ namespace Frosthold
     {
         public GameController gc;
         private Screen screen;
-        public InspectKeyBinds(Player player, Screen screen) : base(new InputParser(), player)
+        public InspectKeyBinds() : base(new InputParser())
         {
             this.gc = GameController.Instance;
-            this.screen = screen;
+            
             AddBinds();
             
         }
@@ -24,10 +24,10 @@ namespace Frosthold
             this.ip.AddKey(ConsoleKey.Spacebar, () => gc.inspecting = false);
             
 
-            ip.AddKey(ConsoleKey.RightArrow, () => screen.MoveCursor(1, 0));
-            ip.AddKey(ConsoleKey.LeftArrow, () => screen.MoveCursor(-1, 0));
-            ip.AddKey(ConsoleKey.UpArrow, () => screen.MoveCursor(0, -1));
-            ip.AddKey(ConsoleKey.DownArrow, () => screen.MoveCursor(0, 1));
+            ip.AddKey(ConsoleKey.RightArrow, () => gc.screen.MoveCursor(1, 0));
+            ip.AddKey(ConsoleKey.LeftArrow, () => gc.screen.MoveCursor(-1, 0));
+            ip.AddKey(ConsoleKey.UpArrow, () => gc.screen.MoveCursor(0, -1));
+            ip.AddKey(ConsoleKey.DownArrow, () => gc.screen.MoveCursor(0, 1));
            
         }
     }

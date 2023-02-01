@@ -27,6 +27,13 @@ namespace Frosthold {
         //liikutetaan pelaajaa x ja y muuttujien mukaisesti
         public void MovePlayer(int x, int y)
         {
+            
+            if(CheckCollision(x, y))
+            {
+                return;
+            }
+            GameController.Instance.screen.RemoveMark(this.Pos.x, this.Pos.y);
+            
             this.Pos.x += x;
             this.Pos.y += y;
             //tarkastetaan että ei mennä ruudun yli
@@ -46,6 +53,31 @@ namespace Frosthold {
             {
                 Pos.y = 0;
             }
+        }
+
+        private bool CheckCollision(int x, int y)
+        {
+           
+            foreach(Entity e in GameController.Instance.entities)
+            {
+                if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
+                {
+                    GameController.Instance.RemoveEntity(e);
+                    return true;
+                }
+            }
+
+            int arrayWidth = GameController.Instance.map.MapArray.GetLength(0);
+            int arrayHeight = GameController.Instance.map.MapArray.GetLength(1);
+
+            if (this.Pos.x + x + 1 >= 0 && this.Pos.x + x + 1 < arrayWidth &&
+                this.Pos.y + y + 1 >= 0 && this.Pos.y + y + 1 < arrayHeight &&
+                GameController.Instance.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

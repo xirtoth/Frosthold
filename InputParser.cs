@@ -21,21 +21,7 @@ namespace Frosthold
         }
         public void ParseInput(ConsoleKey key)
         {
-           /* if (key.Key == ConsoleKey.RightArrow)
-            {
-                player.MovePlayer(1, 0);
-            }
-
-            if(key.Key == ConsoleKey.LeftArrow)
-            {
-                player.MovePlayer(-1, 0);
-            }
-
-            if(key.Key == ConsoleKey.Spacebar)
-            {
-                
-                gc.Inspect();
-            }*/
+           
 
             if(keyMap.ContainsKey(key))
             {

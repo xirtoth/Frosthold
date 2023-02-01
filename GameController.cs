@@ -12,7 +12,7 @@ namespace Frosthold
     public class GameController
     {
         public static GameController? Instance { get; set; }
-        Player player;
+        public Player player;
         public List<Entity> entities { get; set; }
         public int frames { get; set; }
         public Screen screen;
@@ -20,7 +20,7 @@ namespace Frosthold
         public InspectKeyBinds ikb { get; set; }
         public MainInputs mkb { get; set; }
         public Map map;
-        public KeyBinds mainKeys;
+       // public KeyBinds mainKeys;
         public bool inspecting { get; set; }
         
         public bool running { get; set; }
@@ -55,9 +55,9 @@ namespace Frosthold
             this.running = true;
             this.frames = 0;
             this.mkb = new MainInputs(player, screen);
-            this.ikb = new InspectKeyBinds(player, screen);
+            this.ikb = new InspectKeyBinds();
             
-            this.mainKeys = new KeyBinds(this.ip, player);
+           // this.mainKeys = new KeyBinds(this.ip);
             //ip.AddKey(ConsoleKey.K, () => player.MovePlayer(1, 1));
         }
 
@@ -151,8 +151,10 @@ namespace Frosthold
             {
                 if(e is Monster)
                 {
+                    var oldPos = e.Pos;
                     Monster m = (Monster)e;
                     m.MoveEntity(rand.Next(-1,2), rand.Next(-1,2));
+                    
                 }
             }
         }
@@ -160,7 +162,7 @@ namespace Frosthold
         //pistetaan enity listasta
         public void RemoveEntity(Entity entity)
         {
-            Console.Write("Removing " + entity.name + ".");
+            screen.RemoveMark(entity.Pos.x, entity.Pos.y);
             entities.Remove(entity);
         }
 

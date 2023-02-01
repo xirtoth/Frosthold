@@ -13,7 +13,7 @@ namespace Frosthold
         private Screen screen;
         public Player player;
 
-        public MainInputs(Player player, Screen screen) : base(new InputParser(), player)
+        public MainInputs(Player player, Screen screen) : base(new InputParser())
         {
             this.gc = GameController.Instance;
             this.screen = screen;
@@ -23,10 +23,10 @@ namespace Frosthold
 
         private void AddKeys()
         {
-            ip.AddKey(ConsoleKey.RightArrow, () => player.MovePlayer(1, 0));
-            ip.AddKey(ConsoleKey.LeftArrow, () => player.MovePlayer(-1, -0));
-            ip.AddKey(ConsoleKey.UpArrow, () => player.MovePlayer(0, -1));
-            ip.AddKey(ConsoleKey.DownArrow, () => player.MovePlayer(0, 1));
+            ip.AddKey(ConsoleKey.RightArrow, () => gc.player.MovePlayer(1, 0));
+            ip.AddKey(ConsoleKey.LeftArrow, () => gc.player.MovePlayer(-1, -0));
+            ip.AddKey(ConsoleKey.UpArrow, () => gc.player.MovePlayer(0, -1));
+            ip.AddKey(ConsoleKey.DownArrow, () => gc.player.MovePlayer(0, 1));
             ip.AddKey(ConsoleKey.Spacebar, () => gc.Inspect());
         }
     }

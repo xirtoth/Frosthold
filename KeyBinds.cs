@@ -12,11 +12,12 @@ namespace Frosthold
         Dictionary<ConsoleKey, Action> keyMap;
         GameController gc;
         public InputParser ip { get; }
-        public KeyBinds(InputParser ip, Player player)
+        public KeyBinds(InputParser ip)
         {
             this.ip = ip;
-            this.player = player;
             this.gc = GameController.Instance;
+            this.player = this.gc.player;
+            
             AddBinds();
         }
 
