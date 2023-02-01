@@ -1,7 +1,7 @@
 # Frosthold
-c# roguelike peli nethackista inspiroituneena
+c# roguelike peli ns Nethack klooni
 
-Peli on saanut inspiraation Nethack pelistä.
+
 
 Pelissä liikutaan nuolinäppämillä. 
 
