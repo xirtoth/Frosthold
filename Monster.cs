@@ -20,14 +20,14 @@
             this.Damage = damage;
         }
 
-        //funktio jolla otetaan vahinkoa.
+        //funktio jolla otetaan vahinkoa. (ei vielä käytössä)
         public void TakeDamage(int amount)
         {
             Health -= amount;
             CheckHealth();
         }
 
-        //tarkastetaan onko health 0, jos näin on kutsutaan Die() funktiota
+        //tarkastetaan onko health 0, jos näin on kutsutaan Die() funktiota (ei vielä käytössä)
         private void CheckHealth()
         {
             if (Health <= 0)

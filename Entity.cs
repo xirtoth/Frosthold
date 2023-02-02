@@ -49,7 +49,7 @@
             {
                 return;
             }
-            //asetetaan entityn x ja y arvo lisäämällä parametrinä saadut x ja y. tarkastetaan myös, että ei mennä ruudun ulkopuolelle
+            //poistetaan merkki ruudusta josta liikuttiin
             GameController.Instance.screen.RemoveMark(oldPos.x, oldPos.y);
 
             this.Pos.x += x;

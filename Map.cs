@@ -87,6 +87,7 @@
             }
         }
 
+        //lisätään sisään- ja uloskäynti.
         public void AddEntranceAndExit()
         {
             Random rand = new Random();

@@ -1,5 +1,6 @@
 ﻿namespace Frosthold
 {
+    //Position luokka, johon voidaan tallentaa x,y koodrinaatit
     public class Position
     {
         public int x { get; set; }

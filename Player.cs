@@ -49,6 +49,7 @@
         {
             foreach (Entity e in GameController.Instance.entities)
             {
+                //katsotaan jos kohtaan mihin liikutaan on entity. (tähän lisätään myöhemmin damagen otto jne)
                 if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
                 {
                     GameController.Instance.RemoveEntity(e);
@@ -59,6 +60,7 @@
             int arrayWidth = GameController.Instance.map.MapArray.GetLength(0);
             int arrayHeight = GameController.Instance.map.MapArray.GetLength(1);
 
+            //jos ruudussa on seinä
             if (this.Pos.x + x + 1 >= 0 && this.Pos.x + x + 1 < arrayWidth &&
                 this.Pos.y + y + 1 >= 0 && this.Pos.y + y + 1 < arrayHeight &&
                 GameController.Instance.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall)

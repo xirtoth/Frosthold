@@ -5,6 +5,7 @@
     {
         public GameController gc;
 
+        //keybindit joita käytetään kun tarkastellaan ruudulla olevia entityjä
         public InspectKeyBinds() : base(new InputParser())
         {
             this.gc = GameController.Instance;

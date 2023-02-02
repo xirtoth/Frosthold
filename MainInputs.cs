@@ -1,5 +1,6 @@
 ﻿namespace Frosthold
 {
+    //pelitilassa käytettäviä keybindejä
     public class MainInputs : KeyBinds
     {
         public GameController gc;
@@ -14,6 +15,7 @@
             AddKeys();
         }
 
+        //lisätään keybindejä
         private void AddKeys()
         {
             ip.AddKey(ConsoleKey.RightArrow, () => gc.player.MovePlayer(1, 0));
