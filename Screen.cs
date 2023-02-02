@@ -152,7 +152,7 @@ namespace Frosthold
             }
         }
 
-        //tulostetaan teksti ruudulle tietyllä värillä
+        //tulostetaan teksti ruudulle tietyllä värillä.
         public void Write(string text, ConsoleColor color)
         {
             Console.ForegroundColor = color;
