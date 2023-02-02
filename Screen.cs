@@ -27,7 +27,7 @@ namespace Frosthold
             Console.CursorVisible = false;
             Console.WindowHeight = Console.LargestWindowHeight;
             Console.WindowWidth = Console.LargestWindowWidth;
-            //Console.SetWindowSize(100,50);
+            
             Console.SetBufferSize(Console.LargestWindowWidth * 2, Console.LargestWindowHeight * 2);
             Console.SetWindowPosition(0, 0);
             IntPtr consoleWindow = GetConsoleWindow();
@@ -107,7 +107,7 @@ namespace Frosthold
         //tyhjennetään ruutu
         public void Clear()
         {
-            // Console.Clear();
+            Console.Clear();
         }
 
         public void MoveCursor(int x, int y)
