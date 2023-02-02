@@ -51,11 +51,13 @@ namespace Frosthold
             Map map = new Map(50, 50, 5);
             this.map = map;
             map.GenerateMap();
+            player.Pos = map.EntrancePos;
             screen = new Screen(50, 50, player, entities, map);
             this.running = true;
             this.frames = 0;
             this.mkb = new MainInputs(player, screen);
             this.ikb = new InspectKeyBinds();
+            
             
            // this.mainKeys = new KeyBinds(this.ip);
             //ip.AddKey(ConsoleKey.K, () => player.MovePlayer(1, 1));

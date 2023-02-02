@@ -36,6 +36,7 @@ namespace Frosthold
                 ShowWindow(consoleWindow, 3);
             }
             PrintMap();
+            PrintPlayer();
 
 
 
@@ -51,6 +52,7 @@ namespace Frosthold
         //käydään läpi map array ja tulostetaan # jokaiseen kohtaa jossa on seinä (ei toimi täysin)
         public void PrintMap()
         {
+            map.MapArray[10, 10] = TileTypes.entrance;
             // Console.WriteLine(map.Width + map.Height);
             for (int i = 1; i < map.MapArray.GetLength(0); i++)
             {
@@ -72,6 +74,14 @@ namespace Frosthold
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write(" ");
                     }
+                    
+                    if (map.MapArray[i, k] == TileTypes.entrance)
+                    {
+                        Console.SetCursorPosition(i - 1, k - 1);
+                        Write(">", ConsoleColor.Green);
+                    }
+
+
                 }
             }
         }
