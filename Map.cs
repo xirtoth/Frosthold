@@ -13,12 +13,14 @@ namespace Frosthold
     {
         floor, wall,
         door,
-        entrance
+        entrance,
+        exit
     }
     public class Map
     {
 
         public Position EntrancePos { get; set; }
+        public Position ExitPos { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         private int Rooms { get; set; }
@@ -103,9 +105,14 @@ namespace Frosthold
         public void AddEntranceAndExit()
         {
             Random rand = new Random();
+            
             var xPos = rand.Next(2, Width);
-            this.EntrancePos = new Position(xPos-1, Height-11);
-            MapArray[xPos, Height-10] = TileTypes.entrance;
+            EntrancePos = new Position(xPos-1, Height-3);
+            MapArray[xPos, Height-2] = TileTypes.entrance;
+            
+            xPos = rand.Next(2, Width);
+            ExitPos = new Position(xPos - 1, Height - Height + 1);
+            MapArray[xPos, Height - Height + 2] = TileTypes.exit;
         }
 
     }
