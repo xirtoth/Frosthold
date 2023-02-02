@@ -29,13 +29,14 @@ namespace Frosthold
             Console.WindowHeight = Console.LargestWindowHeight;
             Console.WindowWidth = Console.LargestWindowWidth;
 
-            Console.SetBufferSize(Console.LargestWindowWidth * 2, Console.LargestWindowHeight * 2);
+            Console.SetBufferSize(1000, 1000);
             Console.SetWindowPosition(0, 0);
             IntPtr consoleWindow = GetConsoleWindow();
             if (consoleWindow != IntPtr.Zero)
             {
                 ShowWindow(consoleWindow, 3);
             }
+            Clear();
             PrintMap();
             PrintPlayer();
         }
