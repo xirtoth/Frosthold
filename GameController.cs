@@ -15,11 +15,11 @@ namespace Frosthold
         public Player? player;
         public List<Entity> entities { get; set; }
         public int frames { get; set; }
-        public Screen screen;
-        private InputParser ip;
-        public InspectKeyBinds ikb { get; set; }
-        public MainInputs mkb { get; set; }
-        public Map map;
+        public Screen? screen;
+        
+        public InspectKeyBinds? ikb { get; set; }
+        public MainInputs? mkb { get; set; }
+        public Map? map;
        // public KeyBinds mainKeys;
         public bool inspecting { get; set; }
         
@@ -51,11 +51,13 @@ namespace Frosthold
             Map map = new Map(50, 50, 5);
             this.map = map;
             map.GenerateMap();
+            player.Pos = map.EntrancePos;
             screen = new Screen(50, 50, player, entities, map);
             this.running = true;
             this.frames = 0;
             this.mkb = new MainInputs(player, screen);
             this.ikb = new InspectKeyBinds();
+            
             
            // this.mainKeys = new KeyBinds(this.ip);
             //ip.AddKey(ConsoleKey.K, () => player.MovePlayer(1, 1));
@@ -76,7 +78,7 @@ namespace Frosthold
             {
 
                 Console.Write("Give name: ");
-                string name = Console.ReadLine();
+                string? name = Console.ReadLine();
                 if (name != null && name.Length > 0 && name.Length <= 10)
                 {
                     player = new Player(5, 5, name);

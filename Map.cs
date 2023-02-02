@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,11 +12,15 @@ namespace Frosthold
     public enum TileTypes
     {
         floor, wall,
-        door
+        door,
+        entrance,
+        exit
     }
     public class Map
     {
 
+        public Position EntrancePos { get; set; }
+        public Position ExitPos { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         private int Rooms { get; set; }
@@ -71,9 +76,11 @@ namespace Frosthold
 
 
                 CopyToMapArray(MapArray, room);
+                
 
 
             }
+            AddEntranceAndExit();
         }
 
         //kopiodaan huoneen arvot mapArrray muuttujaan    
@@ -93,6 +100,19 @@ namespace Frosthold
                 MapArray[y, room.room.X + room.room.Width - 1] = TileTypes.wall;
             }
 
+        }
+
+        public void AddEntranceAndExit()
+        {
+            Random rand = new Random();
+            
+            var xPos = rand.Next(2, Width);
+            EntrancePos = new Position(xPos-1, Height-3);
+            MapArray[xPos, Height-2] = TileTypes.entrance;
+            
+            xPos = rand.Next(2, Width);
+            ExitPos = new Position(xPos - 1, Height - Height + 1);
+            MapArray[xPos, Height - Height + 2] = TileTypes.exit;
         }
 
     }

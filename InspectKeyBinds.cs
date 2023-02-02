@@ -10,7 +10,7 @@ namespace Frosthold
 
     {
         public GameController gc;
-        private Screen screen;
+        
         public InspectKeyBinds() : base(new InputParser())
         {
             this.gc = GameController.Instance;

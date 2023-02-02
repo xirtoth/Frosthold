@@ -9,7 +9,7 @@ namespace Frosthold
     public class KeyBinds
     {
         Player player;
-        Dictionary<ConsoleKey, Action> keyMap;
+        
         GameController gc;
         public InputParser ip { get; }
         public KeyBinds(InputParser ip)

@@ -28,6 +28,8 @@ namespace Frosthold
             ip.AddKey(ConsoleKey.UpArrow, () => gc.player.MovePlayer(0, -1));
             ip.AddKey(ConsoleKey.DownArrow, () => gc.player.MovePlayer(0, 1));
             ip.AddKey(ConsoleKey.Spacebar, () => gc.Inspect());
+            ip.AddKey(ConsoleKey.K, () => gc.screen.PrintMap());
+            ip.AddKey(ConsoleKey.Q, () =>  Environment.Exit(0));
         }
     }
 }
