@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
     public class Monster : Entity
     {
@@ -26,7 +20,7 @@ namespace Frosthold
             this.Damage = damage;
         }
 
-        //funktio jolla otetaan vahinkoa. 
+        //funktio jolla otetaan vahinkoa.
         public void TakeDamage(int amount)
         {
             Health -= amount;

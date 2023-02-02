@@ -1,21 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
-
-
-
     public class Player
     {
         public Position Pos { get; set; }
         public string PlayerName { get; set; }
         public int Health { get; set; }
         public int MaxHealth { get; set; }
-
 
         public Player(int x, int y, string name)
         {
@@ -28,7 +18,6 @@ namespace Frosthold
         //liikutetaan pelaajaa x ja y muuttujien mukaisesti
         public void MovePlayer(int x, int y)
         {
-
             if (CheckCollision(x, y))
             {
                 return;
@@ -58,7 +47,6 @@ namespace Frosthold
 
         private bool CheckCollision(int x, int y)
         {
-
             foreach (Entity e in GameController.Instance.entities)
             {
                 if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)

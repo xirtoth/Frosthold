@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
     public class MainInputs : KeyBinds
     {
@@ -29,7 +22,7 @@ namespace Frosthold
             ip.AddKey(ConsoleKey.DownArrow, () => gc.player.MovePlayer(0, 1));
             ip.AddKey(ConsoleKey.Spacebar, () => gc.Inspect());
             ip.AddKey(ConsoleKey.K, () => gc.screen.PrintMap());
-            ip.AddKey(ConsoleKey.Q, () =>  Environment.Exit(0));
+            ip.AddKey(ConsoleKey.Q, () => Environment.Exit(0));
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace Frosthold
 {
@@ -13,13 +8,14 @@ namespace Frosthold
         private int height { get; set; }
 
         public Rectangle room { get; set; }
+
         public Room(int width, int height)
         {
             this.width = width;
             this.height = height;
         }
-    
-    //tehdään uusi huone. (tällähetkellä testitilassa)
+
+        //tehdään uusi huone. (tällähetkellä testitilassa)
         public void GenerateRoom()
         {
             Random rand = new Random();
@@ -30,18 +26,9 @@ namespace Frosthold
               {
                   for(int k = 0; k < height; k++)
                   {
-
                   }
               }*/
-            room = new Rectangle(randomX+2, randomY+2, width, height);
-            
-            
-
+            room = new Rectangle(randomX + 2, randomY + 2, width, height);
         }
-
-       
-
-        
-    
     }
 }

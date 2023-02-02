@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
     public class GameController
     {
@@ -16,14 +7,16 @@ namespace Frosthold
         public List<Entity> entities { get; set; }
         public int frames { get; set; }
         public Screen? screen;
-        
+
         public InspectKeyBinds? ikb { get; set; }
         public MainInputs? mkb { get; set; }
         public Map? map;
-       // public KeyBinds mainKeys;
+
+        // public KeyBinds mainKeys;
         public bool inspecting { get; set; }
-        
+
         public bool running { get; set; }
+
         public GameController()
         {
             this.running = false;
@@ -33,21 +26,19 @@ namespace Frosthold
         //Luodaan tarvittavat muuttujat
         public void Init()
         {
-
             this.inspecting = false;
             Random rnd = new Random();
             GenerateLevel();
             Entity e = new Entity("jorma", "jorma on iso paha mörkö", "J", new Position(10, 10), ConsoleColor.Red);
             entities.Add(e);
-            
+
             entities.Add(new Monster("lohari", "Iso paha lohikäärme", "D", 100, 100, 100, new Position(15, 2), ConsoleColor.Magenta));
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 entities.Add(new Monster("keijo", "keijo on iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rnd.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
-             
             }
             this.player = CreatePlayer();
-            
+
             Map map = new Map(50, 50, 5);
             this.map = map;
             map.GenerateMap();
@@ -57,9 +48,8 @@ namespace Frosthold
             this.frames = 0;
             this.mkb = new MainInputs(player, screen);
             this.ikb = new InspectKeyBinds();
-            
-            
-           // this.mainKeys = new KeyBinds(this.ip);
+
+            // this.mainKeys = new KeyBinds(this.ip);
             //ip.AddKey(ConsoleKey.K, () => player.MovePlayer(1, 1));
         }
 
@@ -68,7 +58,6 @@ namespace Frosthold
             Random rand = new Random();
             Map map = new Map(50, 50, 3);
             map.GenerateMap();
-            
         }
 
         private static Player CreatePlayer()
@@ -76,7 +65,6 @@ namespace Frosthold
             Player player;
             while (true)
             {
-
                 Console.Write("Give name: ");
                 string? name = Console.ReadLine();
                 if (name != null && name.Length > 0 && name.Length <= 10)
@@ -96,30 +84,20 @@ namespace Frosthold
             return key;
         }
 
-       //pelin looppi
+        //pelin looppi
         public void Start()
         {
-            while(running == true)
+            while (running == true)
             {
-
-
-
                 var input = ReadInput().Key;
                 mkb.ip.ParseInput(input);
-                
-               
+
                 //liikutetaan vihollisia
                 MoveEnemies(entities);
-               
-                
+
                 screen.UpdateScreen();
 
-
                 frames++;
-                
-         
-                
-
             }
         }
 
@@ -127,9 +105,9 @@ namespace Frosthold
         private void CheckRandomEvents()
         {
             Random rand = new Random();
-            if(frames % 2 == 0)
+            if (frames % 2 == 0)
             {
-                entities[1].MoveEntity(rand.Next(-1,1), rand.Next(-1, 1));
+                entities[1].MoveEntity(rand.Next(-1, 1), rand.Next(-1, 1));
             }
         }
 
@@ -137,14 +115,13 @@ namespace Frosthold
         private void MoveEnemies(List<Entity> entities)
         {
             Random rand = new Random();
-            foreach(Entity e in entities)
+            foreach (Entity e in entities)
             {
-                if(e is Monster)
+                if (e is Monster)
                 {
                     var oldPos = e.Pos;
                     Monster m = (Monster)e;
-                    m.MoveEntity(rand.Next(-1,2), rand.Next(-1,2));
-                    
+                    m.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
                 }
             }
         }
@@ -161,12 +138,11 @@ namespace Frosthold
             inspecting = true;
             Console.SetCursorPosition(player.Pos.x, player.Pos.y);
             Console.CursorVisible = true;
-            while(inspecting)
+            while (inspecting)
             {
-                
                 var input = ReadInput();
                 ikb.ip.ParseInput(input.Key);
-               
+
                 foreach (Entity e in entities)
                 {
                     if (e.Pos.x == Console.CursorLeft && e.Pos.y == Console.CursorTop)

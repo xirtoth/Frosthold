@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
-
     public enum TileTypes
     {
         floor, wall,
@@ -16,9 +7,9 @@ namespace Frosthold
         entrance,
         exit
     }
+
     public class Map
     {
-
         public Position EntrancePos { get; set; }
         public Position ExitPos { get; set; }
         public int Width { get; set; }
@@ -27,6 +18,7 @@ namespace Frosthold
 
         private List<Room> RoomsList { get; set; }
         public TileTypes[,] MapArray { get; set; }
+
         public Map(int width, int height, int rooms)
         {
             this.Width = width;
@@ -35,6 +27,7 @@ namespace Frosthold
             this.MapArray = new TileTypes[width + 1, height + 1];
             this.RoomsList = new List<Room>();
         }
+
         //luodaan map itemi. ja määritellään seinät
         public void GenerateMap()
         {
@@ -71,23 +64,16 @@ namespace Frosthold
                             break;
                         }
                     }
-
                 }
 
-
                 CopyToMapArray(MapArray, room);
-                
-
-
             }
             AddEntranceAndExit();
         }
 
-        //kopiodaan huoneen arvot mapArrray muuttujaan    
+        //kopiodaan huoneen arvot mapArrray muuttujaan
         public void CopyToMapArray(TileTypes[,] mapArray, Room room)
         {
-
-
             for (int x = room.room.X; x < room.room.X + room.room.Width; x++)
             {
                 MapArray[room.room.Y, x] = TileTypes.wall;
@@ -99,21 +85,19 @@ namespace Frosthold
                 MapArray[y, room.room.X] = TileTypes.wall;
                 MapArray[y, room.room.X + room.room.Width - 1] = TileTypes.wall;
             }
-
         }
 
         public void AddEntranceAndExit()
         {
             Random rand = new Random();
-            
+
             var xPos = rand.Next(2, Width);
-            EntrancePos = new Position(xPos-1, Height-3);
-            MapArray[xPos, Height-2] = TileTypes.entrance;
-            
+            EntrancePos = new Position(xPos - 1, Height - 3);
+            MapArray[xPos, Height - 2] = TileTypes.entrance;
+
             xPos = rand.Next(2, Width);
             ExitPos = new Position(xPos - 1, Height - Height + 1);
             MapArray[xPos, Height - Height + 2] = TileTypes.exit;
         }
-
     }
 }

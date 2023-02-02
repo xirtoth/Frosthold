@@ -1,27 +1,24 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
     public class Entity
     {
-    
-
         public string name { get; set; }
         public string description { get; set; }
 
         public int health;
         public int maxHealth;
+
         public enum EntityType
         {
             monster, npc, item
         }
+
         public EntityType type { get; set; }
 
         public string mark { get; set; }
         public Position Pos { get; set; }
 
         public ConsoleColor color;
-
 
         public Entity(string name, string description, string mark, Position pos)
         {
@@ -54,12 +51,10 @@ namespace Frosthold
             }
             //asetetaan entityn x ja y arvo lisäämällä parametrinä saadut x ja y. tarkastetaan myös, että ei mennä ruudun ulkopuolelle
             GameController.Instance.screen.RemoveMark(oldPos.x, oldPos.y);
-            
+
             this.Pos.x += x;
             this.Pos.y += y;
-            
-           
-            
+
             if (Pos.x >= GameController.Instance.screen.Width - 2)
             {
                 Pos.x = GameController.Instance.screen.Width - 2;
@@ -76,8 +71,6 @@ namespace Frosthold
             {
                 Pos.y = 1;
             }
-
-        
         }
 
         //asetetaan entityn piste
@@ -90,15 +83,14 @@ namespace Frosthold
         //tarkastetaan onko ruudussa johon ollaan liikkumassa toinen entity. Palatetaan true jos näin on (Tähän tarvii paljon lisää tarkastuksia tulevaisuudessa)
         private bool CheckCollision(int x, int y)
         {
-            foreach(Entity e in GameController.Instance.entities)
+            foreach (Entity e in GameController.Instance.entities)
             {
-                if(this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
+                if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
                 {
                     return true;
                 }
                 if (GameController.Instance.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall)
                 {
-                    
                     return true;
                 }
 
@@ -109,7 +101,5 @@ namespace Frosthold
             }
             return false;
         }
-
-
     }
 }
