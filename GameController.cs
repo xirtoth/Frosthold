@@ -15,11 +15,11 @@ namespace Frosthold
         public Player? player;
         public List<Entity> entities { get; set; }
         public int frames { get; set; }
-        public Screen screen;
-        private InputParser ip;
-        public InspectKeyBinds ikb { get; set; }
-        public MainInputs mkb { get; set; }
-        public Map map;
+        public Screen? screen;
+        
+        public InspectKeyBinds? ikb { get; set; }
+        public MainInputs? mkb { get; set; }
+        public Map? map;
        // public KeyBinds mainKeys;
         public bool inspecting { get; set; }
         
@@ -78,7 +78,7 @@ namespace Frosthold
             {
 
                 Console.Write("Give name: ");
-                string name = Console.ReadLine();
+                string? name = Console.ReadLine();
                 if (name != null && name.Length > 0 && name.Length <= 10)
                 {
                     player = new Player(5, 5, name);

@@ -122,20 +122,20 @@ namespace Frosthold
 
         private void PrintEnterAndExit()
         {
-            Console.SetCursorPosition(GameController.Instance.map.ExitPos.x, GameController.Instance.map.ExitPos.y);
+            //Console.SetCursorPosition(GameController.Instance.map.ExitPos.x, GameController.Instance.map.ExitPos.y);
             Write("<", GameController.Instance.map.ExitPos, ConsoleColor.Green);
 
 
-            Console.SetCursorPosition(GameController.Instance.map.EntrancePos.x, GameController.Instance.map.EntrancePos.y);
+            //Console.SetCursorPosition(GameController.Instance.map.EntrancePos.x, GameController.Instance.map.EntrancePos.y);
             Write(">", GameController.Instance.map.EntrancePos, ConsoleColor.Green);
             
             
         }
 
-        private void Write(string v, Position pos, ConsoleColor color)
+        private void Write(string text, Position pos, ConsoleColor color)
         {
             Console.SetCursorPosition(pos.x, pos.y);
-            Write(v, color);
+            Write(text, color);
         }
 
         //tulostetaan pelaajan nimi health(myöhemmin lisää) ruudun alareunaan
