@@ -18,13 +18,16 @@ namespace Frosthold
 
         private Map map { get; set; }
 
-        public Screen(int width, int height, Player player, List<Entity> entities, Map map)
+        private GameController gc;
+
+        public Screen(int width, int height)
         {
             this.Width = width;
             this.Height = height;
             this.player = player;
             this.entities = entities;
-            this.map = map;
+            
+            gc = GameController.Instance;
             Console.CursorVisible = false;
             Console.WindowHeight = Console.LargestWindowHeight;
             Console.WindowWidth = Console.LargestWindowWidth;
@@ -44,7 +47,7 @@ namespace Frosthold
         //asetetaan kursori pelaajan sijaintiin ja tulostetaan @
         public void PrintPlayer()
         {
-            Console.SetCursorPosition(player.Pos.x, player.Pos.y);
+            Console.SetCursorPosition(gc.player.Pos.x, gc.player.Pos.y);
             Write("@");
         }
 
@@ -52,33 +55,33 @@ namespace Frosthold
         public void PrintMap()
         {
             // Console.WriteLine(map.Width + map.Height);
-            for (int i = 1; i < map.MapArray.GetLength(0); i++)
+            for (int i = 1; i < gc.map.MapArray.GetLength(0); i++)
             {
-                for (int k = 1; k < map.MapArray.GetLength(1); k++)
+                for (int k = 1; k < gc.map.MapArray.GetLength(1); k++)
                 {
                     /* if (i == 0 || i == map.Width-1|| k == 0 || k == map.Height-1)
                      {
                          Console.SetCursorPosition(i, k);
                          Write("#");
                      }*/
-                    if (map.MapArray[i, k] == TileTypes.wall)
+                    if (gc.map.MapArray[i, k] == TileTypes.wall)
                     {
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write("#");
                     }
 
-                    if (map.MapArray[i, k] == TileTypes.floor)
+                    if (gc.map.MapArray[i, k] == TileTypes.floor)
                     {
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write(" ");
                     }
 
-                    if (map.MapArray[i, k] == TileTypes.entrance)
+                    if (gc.map.MapArray[i, k] == TileTypes.entrance)
                     {
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write(">", ConsoleColor.Green);
                     }
-                    if (map.MapArray[i, k] == TileTypes.exit)
+                    if (gc.map.MapArray[i, k] == TileTypes.exit)
                     {
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write("<", ConsoleColor.Green);
@@ -90,7 +93,7 @@ namespace Frosthold
         //tulostetaan jokanen entity ruudulle
         public void PrintEntities()
         {
-            foreach (Entity e in entities)
+            foreach (Entity e in gc.entities)
             {
                 Console.SetCursorPosition(e.Pos.x, e.Pos.y);
                 Write(e.mark, e.color);
@@ -102,21 +105,21 @@ namespace Frosthold
         {
             //Clear();
             //PrintMap();
-
+            PrintEnterAndExit();
             PrintEntities();
             PrintPlayerStats();
             //PrintEnterAndExit();
             PrintPlayer();
-            PrintEnterAndExit();
+            //PrintEnterAndExit();
         }
 
         private void PrintEnterAndExit()
         {
             //Console.SetCursorPosition(GameController.Instance.map.ExitPos.x, GameController.Instance.map.ExitPos.y);
-            Write("<", GameController.Instance.map.ExitPos, ConsoleColor.Green);
+            Write("<", gc.map.ExitPos, ConsoleColor.Yellow);
 
             //Console.SetCursorPosition(GameController.Instance.map.EntrancePos.x, GameController.Instance.map.EntrancePos.y);
-            Write(">", GameController.Instance.map.EntrancePos, ConsoleColor.Green);
+            Write("!", gc.map.EntrancePos, ConsoleColor.Yellow);
         }
 
         private void Write(string text, Position pos, ConsoleColor color)
@@ -129,7 +132,7 @@ namespace Frosthold
         public void PrintPlayerStats()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - 2);
-            Write(player.PlayerName + " " + player.Health + "/" + player.MaxHealth);
+            Write(gc.player.PlayerName + " " + gc.player.Health + "/" + gc.player.MaxHealth + " Floor: " + gc.floor);
         }
 
         //tyhjennetään ruutu
@@ -172,6 +175,26 @@ namespace Frosthold
             Console.CursorVisible = false;
             Console.SetCursorPosition(x, y);
             Console.Write(" ");
+        }
+
+        internal void DrawNewMap()
+        {
+            /*Clear();
+            
+            PrintEnterAndExit();
+            //PrintEntities();
+            PrintPlayerStats();
+            //PrintEnterAndExit();
+            PrintMap();
+            PrintPlayer();*/
+            Clear();
+            PrintMap();
+            PrintPlayer();
+        }
+
+        public void ChangeMap(Map map)
+        {
+            this.map = map;
         }
     }
 }

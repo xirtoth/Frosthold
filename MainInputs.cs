@@ -25,6 +25,7 @@
             ip.AddKey(ConsoleKey.Spacebar, () => gc.Inspect());
             ip.AddKey(ConsoleKey.K, () => gc.screen.PrintMap());
             ip.AddKey(ConsoleKey.Q, () => Environment.Exit(0));
+            ip.AddKey(ConsoleKey.G, () => gc.ChangeMap());
         }
     }
 }

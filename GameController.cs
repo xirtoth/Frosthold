@@ -11,8 +11,10 @@
         public InspectKeyBinds? ikb { get; set; }
         public MainInputs? mkb { get; set; }
         public Map? map;
+        public Map? map2;
 
         // public KeyBinds mainKeys;
+        public int floor { get; set; }
         public bool inspecting { get; set; }
 
         public bool running { get; set; }
@@ -26,24 +28,18 @@
         //Luodaan tarvittavat muuttujat
         public void Init()
         {
+
+
+            this.floor = 1;
             this.inspecting = false;
             Random rnd = new Random();
             GenerateLevel();
-            Entity e = new Entity("jorma", "jorma on iso paha mörkö", "J", new Position(10, 10), ConsoleColor.Red);
-            entities.Add(e);
-
-            entities.Add(new Monster("lohari", "Iso paha lohikäärme", "D", 100, 100, 100, new Position(15, 2), ConsoleColor.Magenta));
-            for (int i = 0; i < 10; i++)
-            {
-                entities.Add(new Monster("keijo", "keijo on iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rnd.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
-            }
+            
             this.player = CreatePlayer();
 
-            Map map = new Map(50, 50, 5);
-            this.map = map;
-            map.GenerateMap();
+            
             player.Pos = map.EntrancePos;
-            screen = new Screen(50, 50, player, entities, map);
+            screen = new Screen(50, 50);
             this.running = true;
             this.frames = 0;
             this.mkb = new MainInputs(player, screen);
@@ -56,8 +52,11 @@
         private void GenerateLevel()
         {
             Random rand = new Random();
+            //Map map = new Map(50, 50, 3);
             Map map = new Map(50, 50, 3);
             map.GenerateMap();
+            this.map = map;
+            this.entities = map.entities;
         }
 
         private static Player CreatePlayer()
@@ -154,6 +153,19 @@
                     }
                 }
             }
+        }
+
+        internal void ChangeMap()
+        {
+            Random rand = new Random();
+            map2 = new Map(50, 50, rand.Next(1,4));
+            map2.GenerateMap();
+            this.map = map2;
+            this.entities = map2.entities;
+            this.player.Pos = map2.EntrancePos;
+            
+            screen.DrawNewMap();
+            floor++;
         }
     }
 }

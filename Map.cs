@@ -12,6 +12,8 @@
     {
         public Position EntrancePos { get; set; }
         public Position ExitPos { get; set; }
+
+        public List<Entity> entities { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         private int Rooms { get; set; }
@@ -26,6 +28,20 @@
             this.Rooms = rooms;
             this.MapArray = new TileTypes[width + 1, height + 1];
             this.RoomsList = new List<Room>();
+            this.entities = CreateEntities();
+        }
+
+        private List<Entity>? CreateEntities()
+        {
+            Random rand = new Random();
+            var count = rand.Next(1, 10);
+            List<Entity> en = new List<Entity>();
+            for(int i = 0; i < count; i++)
+            {
+                en.Add(new Monster("keijo", "keijo on iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
+            }
+            return en;
+            
         }
 
         //luodaan map itemi. ja määritellään seinät
