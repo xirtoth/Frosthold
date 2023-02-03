@@ -26,7 +26,7 @@ namespace Frosthold
             this.Height = height;
             this.player = player;
             this.entities = entities;
-            
+
             gc = GameController.Instance;
             Console.CursorVisible = false;
             Console.WindowHeight = Console.LargestWindowHeight;
@@ -180,7 +180,7 @@ namespace Frosthold
         internal void DrawNewMap()
         {
             /*Clear();
-            
+
             PrintEnterAndExit();
             //PrintEntities();
             PrintPlayerStats();
