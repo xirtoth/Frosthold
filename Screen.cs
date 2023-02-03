@@ -184,7 +184,7 @@ namespace Frosthold
             PrintEnterAndExit();
             //PrintEntities();
             PrintPlayerStats();
-            //PrintEnterAndExit();
+            //PrintEnterAndExit() ;
             PrintMap();
             PrintPlayer();*/
             Clear();
@@ -195,6 +195,12 @@ namespace Frosthold
         public void ChangeMap(Map map)
         {
             this.map = map;
+        }
+
+        public void PrintEntityInfo(string v)
+        {
+            Console.SetCursorPosition(0, Console.WindowHeight - 4);
+            Write(v, ConsoleColor.Red);
         }
     }
 }

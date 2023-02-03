@@ -38,7 +38,7 @@
             List<Entity> en = new List<Entity>();
             for(int i = 0; i < count; i++)
             {
-                en.Add(new Monster("keijo", "keijo on iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
+                en.Add(new Monster("keijo"+i, "iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
             }
             return en;
             
