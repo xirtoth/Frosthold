@@ -26,7 +26,7 @@
 
             this.Pos.x += x;
             this.Pos.y += y;
-            if(this.Pos.x == GameController.Instance.map.ExitPos.x && this.Pos.y == GameController.Instance.map.ExitPos.y)
+            if (this.Pos.x == GameController.Instance.map.ExitPos.x && this.Pos.y == GameController.Instance.map.ExitPos.y)
             {
                 GameController.Instance.ChangeMap();
             }

@@ -36,12 +36,11 @@
             Random rand = new Random();
             var count = rand.Next(1, 10);
             List<Entity> en = new List<Entity>();
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                en.Add(new Monster("keijo"+i, "iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
+                en.Add(new Monster("keijo" + i, "iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
             }
             return en;
-            
         }
 
         //luodaan map itemi. ja määritellään seinät
