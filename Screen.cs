@@ -29,10 +29,10 @@ namespace Frosthold
 
             gc = GameController.Instance;
             Console.CursorVisible = false;
-            Console.WindowHeight = Console.LargestWindowHeight;
-            Console.WindowWidth = Console.LargestWindowWidth;
+            Console.WindowHeight = Height;
+            Console.WindowWidth = Width;
 
-            Console.SetBufferSize(1000, 1000);
+            Console.SetBufferSize(Width, Height);
             Console.SetWindowPosition(0, 0);
             IntPtr consoleWindow = GetConsoleWindow();
             if (consoleWindow != IntPtr.Zero)
@@ -86,6 +86,7 @@ namespace Frosthold
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write("<", ConsoleColor.Green);
                     }
+                   
                 }
             }
         }

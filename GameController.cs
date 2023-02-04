@@ -40,7 +40,7 @@
 
             
             player.Pos = map.EntrancePos;
-            screen = new Screen(50, 50);
+            screen = new Screen(120, 50);
             this.running = true;
             this.frames = 0;
             this.mkb = new MainInputs(player, screen);
@@ -118,12 +118,21 @@
             Random rand = new Random();
             foreach (Entity e in entities)
             {
-                if (e is Monster)
+               /* if (e is Monster)
                 {
                     var oldPos = e.Pos;
                     Monster m = (Monster)e;
                     m.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                }*/
+               if(e.canMove)
+                {
+                    e.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
                 }
+               if(e.type == Entity.EntityType.item)
+                {
+                    e.MoveEntity(1,1);
+                }
+
             }
         }
 

@@ -17,10 +17,11 @@
 
         public string mark { get; set; }
         public Position Pos { get; set; }
+        public bool canMove { get; set; }
 
         public ConsoleColor color;
 
-        public Entity(string name, string description, string mark, Position pos)
+        public Entity(string name, string description, string mark, Position pos, bool canMove)
         {
             this.name = name;
             this.description = description;
@@ -28,9 +29,10 @@
             this.mark = mark;
             this.color = ConsoleColor.White;
             this.type = EntityType.monster;
+            this.canMove = canMove;
         }
 
-        public Entity(string name, string description, string mark, Position pos, ConsoleColor color)
+        public Entity(string name, string description, string mark, Position pos, bool canMove, ConsoleColor color)
         {
             this.name = name;
             this.description = description;
@@ -38,39 +40,14 @@
             this.mark = mark;
             this.color = color;
             this.type = EntityType.monster;
+            this.canMove = canMove;
         }
 
         //liikutetaan entityä
-        public void MoveEntity(int x, int y)
+        public virtual void MoveEntity(int x, int y)
         {
-            var oldPos = this.Pos;
-            //tarkastetaan onko esteitä (tätä voi parantaa)
-            if (CheckCollision(x, y))
-            {
-                return;
-            }
-            //poistetaan merkki ruudusta josta liikuttiin
-            GameController.Instance.screen.RemoveMark(oldPos.x, oldPos.y);
-
-            this.Pos.x += x;
-            this.Pos.y += y;
-
-            if (Pos.x >= GameController.Instance.screen.Width - 2)
-            {
-                Pos.x = GameController.Instance.screen.Width - 2;
-            }
-            if (Pos.x <= 1)
-            {
-                Pos.x = 1;
-            }
-            if (Pos.y >= GameController.Instance.screen.Height - 2)
-            {
-                Pos.y = GameController.Instance.screen.Height - 2;
-            }
-            if (Pos.y <= 1)
-            {
-                Pos.y = 1;
-            }
+            
+            
         }
 
         //asetetaan entityn piste
@@ -81,7 +58,7 @@
         }
 
         //tarkastetaan onko ruudussa johon ollaan liikkumassa toinen entity. Palatetaan true jos näin on (Tähän tarvii paljon lisää tarkastuksia tulevaisuudessa)
-        private bool CheckCollision(int x, int y)
+        public bool CheckCollision(int x, int y)
         {
             foreach (Entity e in GameController.Instance.entities)
             {
