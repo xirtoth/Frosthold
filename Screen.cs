@@ -73,7 +73,7 @@ namespace Frosthold
                     if (gc.map.MapArray[i, k] == TileTypes.floor)
                     {
                         Console.SetCursorPosition(i - 1, k - 1);
-                        Write(" ");
+                        Write(".");
                     }
 
                     if (gc.map.MapArray[i, k] == TileTypes.entrance)
