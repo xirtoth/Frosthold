@@ -73,7 +73,7 @@ namespace Frosthold
                     if (gc.map.MapArray[i, k] == TileTypes.floor)
                     {
                         Console.SetCursorPosition(i - 1, k - 1);
-                        Write(" ");
+                        Write(".");
                     }
 
                     if (gc.map.MapArray[i, k] == TileTypes.entrance)
@@ -133,8 +133,9 @@ namespace Frosthold
         public void PrintPlayerStats()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - 2);
-            Write(gc.player.PlayerName + " " + gc.player.Health + "/" + gc.player.MaxHealth + " Floor: " + gc.floor);
+            Write($"{gc.player.PlayerName} {gc.player.Health}/{gc.player.MaxHealth} Gold: {gc.player.inventory.gold} Floor: {gc.floor}");
         }
+
 
         //tyhjennetään ruutu
         public void Clear()
@@ -202,6 +203,12 @@ namespace Frosthold
         {
             Console.SetCursorPosition(0, Console.WindowHeight - 4);
             Write(v, ConsoleColor.Red);
+        }
+
+        public void PrintDamageInfo(string text)
+        {
+            Console.SetCursorPosition(0, Console.WindowHeight - 3);
+            Write(text, ConsoleColor.Green);
         }
     }
 }

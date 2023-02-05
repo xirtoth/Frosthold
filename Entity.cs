@@ -5,8 +5,8 @@
         public string name { get; set; }
         public string description { get; set; }
 
-        public int health;
-        public int maxHealth;
+        public int health { get; set; }
+        public int maxHealth { get; set; }
 
         public enum EntityType
         {
@@ -28,7 +28,7 @@
             this.Pos = pos;
             this.mark = mark;
             this.color = ConsoleColor.White;
-            this.type = EntityType.monster;
+            //this.type = EntityType.monster;
             this.canMove = canMove;
         }
 
@@ -39,7 +39,7 @@
             this.Pos = pos;
             this.mark = mark;
             this.color = color;
-            this.type = EntityType.monster;
+           // this.type = EntityType.monster;
             this.canMove = canMove;
         }
 
@@ -77,6 +77,25 @@
                 }
             }
             return false;
+        }
+
+        public virtual void TakeDamage(int hitDamage)
+        {
+            health -= hitDamage;
+            CheckDeath();
+        }
+
+        private void CheckDeath()
+        {
+            if(health <= 0)
+            {
+                RemoveEntity(this);
+            }
+        }
+
+        public void RemoveEntity(Entity entity)
+        {
+            GameController.Instance.RemoveEntity(entity);
         }
     }
 }

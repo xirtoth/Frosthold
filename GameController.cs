@@ -2,6 +2,8 @@
 {
     public class GameController
     {
+        public const int SCREEN_WIDTH = 120;
+        public const int SCREEN_HEIGHT = 50;
         public static GameController? Instance { get; set; }
         public Player? player;
         public List<Entity> entities { get; set; }
@@ -40,7 +42,7 @@
 
             
             player.Pos = map.EntrancePos;
-            screen = new Screen(120, 50);
+            screen = new Screen(SCREEN_WIDTH, SCREEN_HEIGHT);
             this.running = true;
             this.frames = 0;
             this.mkb = new MainInputs(player, screen);
@@ -69,7 +71,7 @@
                 string? name = Console.ReadLine();
                 if (name != null && name.Length > 0 && name.Length <= 10)
                 {
-                    player = new Player(5, 5, name);
+                    player = new Player(5, 5, name, 15, 10, 5);
                     return player;
                 }
                 Console.WriteLine("Name must be between 1 and 10 letters.");
@@ -159,8 +161,12 @@
                     {
                         var cursorOldPosition = Console.GetCursorPosition();
                         Console.SetCursorPosition(25, 25);
-                        screen.PrintEntityInfo(e.name + " " + e.description);
-                        Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
+                        if (e.GetType() == typeof(Monster))
+                        {
+                            var en = (Monster)e;
+                            screen.PrintEntityInfo($"{en.name} {en.description} Hp:{en.Health}/{en.MaxHealth}");
+                            Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
+                        }
                     }
                 }
             }

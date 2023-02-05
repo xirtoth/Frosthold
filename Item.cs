@@ -22,5 +22,9 @@
         {
             this.Pos.x = this.Pos.x + 1;
         }
+        public virtual void Attack(Entity e)
+        {
+
+        }
     }
 }
