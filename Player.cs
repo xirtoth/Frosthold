@@ -29,8 +29,7 @@
             {
                 inventory.AddItem(new Item("test", "testi", 1, 1, "$", new Position(10, 10), ConsoleColor.Yellow));
             }
-            
-           
+            inventory.Weapon = WeaponGenerator.GetRandomCommonWeapon();
         }
 
         //liikutetaan pelaajaa x ja y muuttujien mukaisesti
@@ -74,7 +73,12 @@
                 //katsotaan jos kohtaan mihin liikutaan on entity. (tähän lisätään myöhemmin damagen otto jne)
                 if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
                 {
-                    GameController.Instance.RemoveEntity(e);
+                    if (e.GetType() == typeof(Monster))
+                    {
+                        var en = (Monster)e;
+                        inventory.Weapon.Attack(e);
+                    }
+                    //GameController.Instance.RemoveEntity(e);
                     return true;
                 }
             }

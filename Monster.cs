@@ -21,11 +21,7 @@
         }
 
         //funktio jolla otetaan vahinkoa. (ei vielä käytössä)
-        public void TakeDamage(int amount)
-        {
-            Health -= amount;
-            CheckHealth();
-        }
+     
 
         //tarkastetaan onko health 0, jos näin on kutsutaan Die() funktiota (ei vielä käytössä)
         private void CheckHealth()
@@ -35,7 +31,11 @@
                 Die();
             }
         }
-
+        public override void TakeDamage(int hitDamage)
+        {
+            Health -= hitDamage;
+            CheckHealth();
+        }
         //GameControllerin instancesta kutsutaan RemoveEntity metodia ja annetaan parametriks tämä instance.
         public void Die()
         {

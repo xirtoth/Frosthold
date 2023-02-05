@@ -204,5 +204,11 @@ namespace Frosthold
             Console.SetCursorPosition(0, Console.WindowHeight - 4);
             Write(v, ConsoleColor.Red);
         }
+
+        public void PrintDamageInfo(string text)
+        {
+            Console.SetCursorPosition(0, Console.WindowHeight - 3);
+            Write(text, ConsoleColor.Green);
+        }
     }
 }

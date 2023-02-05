@@ -161,8 +161,12 @@
                     {
                         var cursorOldPosition = Console.GetCursorPosition();
                         Console.SetCursorPosition(25, 25);
-                        screen.PrintEntityInfo(e.name + " " + e.description);
-                        Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
+                        if (e.GetType() == typeof(Monster))
+                        {
+                            var en = (Monster)e;
+                            screen.PrintEntityInfo($"{en.name} {en.description} Hp:{en.Health}/{en.MaxHealth}");
+                            Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
+                        }
                     }
                 }
             }

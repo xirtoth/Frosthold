@@ -14,10 +14,12 @@ namespace Frosthold
     public class Weapon : Item
     {
 
+        private static readonly Random rand = new Random();
 
         public int Range { get; set; }
         public int Damage { get; set; }
         public WeaponType WeaponType;
+        private GameController gc = GameController.Instance;
 
         public Weapon(string name, string description, int damage, int range, string mark, WeaponType weapontype) : base(name, description, 1, 1, mark, new Position(1, 1), ConsoleColor.DarkRed)
         {
@@ -27,12 +29,12 @@ namespace Frosthold
             WeaponType = weapontype;
         }
 
-        public override void Attack()
+        public override void Attack(Entity e)
         {
             switch (WeaponType)
             {
                 case WeaponType.Melee:
-                    MeleeAttack();
+                    MeleeAttack(e);
                     break;
                 case WeaponType.Ranged:
                     RangedAttack();
@@ -47,9 +49,29 @@ namespace Frosthold
             throw new NotImplementedException();
         }
 
-        private void MeleeAttack()
+        private void MeleeAttack(Entity e)
         {
-            throw new NotImplementedException();
+            var en = (Monster)e;
+            
+            var hitChance = 50 + (gc.player.Dexterity - 10) * 5;
+            var hitRoll = rand.Next(0, 100);
+            
+           
+            if(hitRoll < hitChance)
+            {
+                var hitDamage = gc.player.Strength + Damage;
+                
+                
+                
+                en.TakeDamage(hitDamage);
+                gc.screen.PrintDamageInfo($"you hit {en.name} for {hitDamage} it has {en.Health} hp left");
+            }
+            else
+            {
+                gc.screen.Write("you miss", ConsoleColor.Yellow);
+
+            }
+
         }
     }
 

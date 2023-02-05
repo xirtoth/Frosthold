@@ -11,7 +11,7 @@ namespace Frosthold
     {
         public List<Item> inventory { get; set; }
         public Item Armour { get; set; }
-        public Item Weapon { get; set; }
+        public Weapon Weapon { get; set; }
         public int size;
         public int currentSize;
         public int gold;
@@ -37,7 +37,8 @@ namespace Frosthold
         public void PrintInventory()
         {
             gc.screen.Clear();
-            Console.SetCursorPosition(1, 1);
+            Console.SetCursorPosition(0, 1);
+            gc.screen.Write($"Equipped weapon: {Weapon.Name} (base damage {Weapon.Damage}) + strength modifier {gc.player.Strength} = {Weapon.Damage+gc.player.Strength} " + "\n", ConsoleColor.DarkYellow);
             gc.screen.Write("Inventory: ", ConsoleColor.DarkYellow);
             foreach(Item i in inventory)
             {
