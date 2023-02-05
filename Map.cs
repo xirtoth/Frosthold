@@ -22,6 +22,8 @@
         private List<Room> RoomsList { get; set; }
         public TileTypes[,] MapArray { get; set; }
 
+        private GameController gc = GameController.Instance;
+
         public Map(int width, int height, int rooms)
         {
             this.Width = width;
@@ -43,7 +45,7 @@
             }
             for(int i = 0; i < 5; i++)
             {
-                en.Add(new Item("Potion" + 1, "Healing potion", 1, 1, "?", new Position(24, 24), ConsoleColor.Magenta));
+                en.Add(new Item("Potion" + 1, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 50), rand.Next(4, 50 )), ConsoleColor.Magenta));
             }
             
             return en;

@@ -133,8 +133,9 @@ namespace Frosthold
         public void PrintPlayerStats()
         {
             Console.SetCursorPosition(0, Console.WindowHeight - 2);
-            Write(gc.player.PlayerName + " " + gc.player.Health + "/" + gc.player.MaxHealth + " Floor: " + gc.floor);
+            Write($"{gc.player.PlayerName} {gc.player.Health}/{gc.player.MaxHealth} Gold: {gc.player.inventory.gold} Floor: {gc.floor}");
         }
+
 
         //tyhjennetään ruutu
         public void Clear()

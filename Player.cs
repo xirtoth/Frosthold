@@ -7,12 +7,30 @@
         public int Health { get; set; }
         public int MaxHealth { get; set; }
 
-        public Player(int x, int y, string name)
+        public int Strength { get; set; }
+
+        public int Dexterity { get; set; }
+
+        public int Intelligence { get; set; }
+
+        public Inventory inventory;
+
+        public Player(int x, int y, string name, int str, int dex, int intt)
         {
             this.Pos = new Position(x, y);
             this.PlayerName = name;
             this.Health = 100;
             this.MaxHealth = 100;
+            this.inventory = new Inventory(10);
+            Strength = str;
+            Dexterity = dex;
+            Intelligence = intt;
+            for (int i = 0; i < 10; i++)
+            {
+                inventory.AddItem(new Item("test", "testi", 1, 1, "$", new Position(10, 10), ConsoleColor.Yellow));
+            }
+            
+           
         }
 
         //liikutetaan pelaajaa x ja y muuttujien mukaisesti
