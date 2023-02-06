@@ -55,15 +55,15 @@
         public void GenerateMap()
         {
             Random rand = new Random();
-            for (int i = 0; i < Height; i++)
-            {
-                MapArray[i, 0] = TileTypes.wall;
-                MapArray[i, Width - 1] = TileTypes.wall;
-            }
             for (int i = 0; i < Width; i++)
             {
+                MapArray[i, 0] = TileTypes.wall;
+                MapArray[i, Height - 1] = TileTypes.wall;
+            }
+            for (int i = 0; i < Height; i++)
+            {
                 MapArray[0, i] = TileTypes.wall;
-                MapArray[Height - 1, i] = TileTypes.wall;
+                MapArray[Width - 1, i] = TileTypes.wall;
             }
 
             //tehdään huoneita mappiin. Katsotaan, jos huoneet ovat päällekkäisiä, jos näin on yritetään luoda uusi huone (hieman rikki)

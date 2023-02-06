@@ -4,6 +4,8 @@
     {
         public int SCREEN_WIDTH = Console.LargestWindowWidth;
         public int SCREEN_HEIGHT = Console.LargestWindowHeight;
+        public const int MAP_WIDTH = 50;
+        public const int MAP_HEIGHT = 40;
         public static GameController? Instance { get; set; }
         public Player? player;
         public List<Entity> entities { get; set; }
@@ -56,7 +58,7 @@
         {
             Random rand = new Random();
             //Map map = new Map(50, 50, 3);
-            Map map = new Map(50, 50, 3);
+            Map map = new Map(MAP_WIDTH, MAP_HEIGHT, 3);
             map.GenerateMap();
             this.map = map;
             this.entities = map.entities;
@@ -91,13 +93,14 @@
         {
             while (running == true)
             {
+                screen.UpdateScreen();
                 var input = ReadInput().Key;
                 mkb.ip.ParseInput(input);
 
                 //liikutetaan vihollisia
                 MoveEnemies(entities);
 
-                screen.UpdateScreen();
+                
 
                 frames++;
             }
@@ -175,7 +178,7 @@
         internal void ChangeMap()
         {
             Random rand = new Random();
-            map2 = new Map(50, 50, rand.Next(1,4));
+            map2 = new Map(MAP_WIDTH, MAP_HEIGHT, rand.Next(1,4));
             map2.GenerateMap();
             this.map = map2;
             this.entities = map2.entities;
