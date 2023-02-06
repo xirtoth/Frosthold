@@ -38,8 +38,9 @@ namespace Frosthold
             Console.WindowHeight = Height;
             Console.WindowWidth = Width;
 
-            Console.SetBufferSize(Width+1, Height+1);
             Console.SetWindowPosition(0, 0);
+
+            Console.SetBufferSize(Width, Height);
             
           
             Clear();
