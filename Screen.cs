@@ -40,7 +40,7 @@ namespace Frosthold
 
             Console.SetWindowPosition(0, 0);
 
-            Console.SetBufferSize(Width+100, Height+100);
+            Console.SetBufferSize(Width, Height);
             
           
             Clear();

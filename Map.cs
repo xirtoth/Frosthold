@@ -45,7 +45,7 @@
             }
             for(int i = 0; i < 5; i++)
             {
-                en.Add(new Item("Potion" + 1, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 50), rand.Next(4, 50 )), ConsoleColor.Magenta));
+                en.Add(new Item("Potion" + 1, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 40), rand.Next(4, 40)), ConsoleColor.Magenta));
             }
             
             return en;
@@ -58,12 +58,12 @@
             for (int i = 0; i < Width; i++)
             {
                 MapArray[i, 0] = TileTypes.wall;
-                MapArray[i, Height - 1] = TileTypes.wall;
+                MapArray[i, Height] = TileTypes.wall;
             }
             for (int i = 0; i < Height; i++)
             {
                 MapArray[0, i] = TileTypes.wall;
-                MapArray[Width - 1, i] = TileTypes.wall;
+                MapArray[Width, i] = TileTypes.wall;
             }
 
             //tehdään huoneita mappiin. Katsotaan, jos huoneet ovat päällekkäisiä, jos näin on yritetään luoda uusi huone (hieman rikki)
