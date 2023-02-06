@@ -2,8 +2,8 @@
 {
     public class GameController
     {
-        public const int SCREEN_WIDTH = 120;
-        public const int SCREEN_HEIGHT = 50;
+        public int SCREEN_WIDTH = Console.LargestWindowWidth;
+        public int SCREEN_HEIGHT = Console.LargestWindowHeight;
         public static GameController? Instance { get; set; }
         public Player? player;
         public List<Entity> entities { get; set; }
