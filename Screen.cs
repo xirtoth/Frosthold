@@ -27,6 +27,12 @@ namespace Frosthold
             this.player = player;
             this.entities = entities;
 
+            IntPtr consoleWindow = GetConsoleWindow();
+           
+            if (consoleWindow != IntPtr.Zero)
+            {
+                ShowWindow(consoleWindow, 3);
+            }
             gc = GameController.Instance;
             Console.CursorVisible = false;
             Console.WindowHeight = Height;
@@ -34,11 +40,8 @@ namespace Frosthold
 
             Console.SetBufferSize(Width, Height);
             Console.SetWindowPosition(0, 0);
-            IntPtr consoleWindow = GetConsoleWindow();
-            if (consoleWindow != IntPtr.Zero)
-            {
-                ShowWindow(consoleWindow, 3);
-            }
+            
+          
             Clear();
             PrintMap();
             PrintPlayer();
