@@ -188,7 +188,7 @@
         public void PrintIntroScreen()
         {
             Console.Write("88888888888                                           \r\n88                                             ,d     \r\n88                                             88     \r\n88aaaaa  8b,dPPYba,   ,adPPYba,   ,adPPYba,  MM88MMM  \r\n88\"\"\"\"\"  88P'   \"Y8  a8\"     \"8a  I8[    \"\"    88     \r\n88       88          8b       d8   `\"Y8ba,     88     \r\n88       88          \"8a,   ,a8\"  aa    ]8I    88,    \r\n88       88           `\"YbbdP\"'   `\"YbbdP\"'    \"Y888  \r\n                                                      \r\n                                                      \r\n                                                      \r\n88        88               88           88            \r\n88        88               88           88            \r\n88        88               88           88            \r\n88aaaaaaaa88   ,adPPYba,   88   ,adPPYb,88            \r\n88\"\"\"\"\"\"\"\"88  a8\"     \"8a  88  a8\"    `Y88            \r\n88        88  8b       d8  88  8b       88            \r\n88        88  \"8a,   ,a8\"  88  \"8a,   ,d88            \r\n88        88   `\"YbbdP\"'   88   `\"8bbdP\"Y8            \r\n                                               ");
-            
+            Console.WriteLine(Console.LargestWindowHeight + " " + Console.LargestWindowWidth);
         }
     }
 }
