@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace Frosthold
 {
     public class Player
     {
@@ -14,6 +16,8 @@
         public int Intelligence { get; set; }
 
         public Inventory inventory;
+
+        private GameController gc = GameController.Instance;
 
         public Player(int x, int y, string name, int str, int dex, int intt)
         {
@@ -78,10 +82,19 @@
                         var en = (Monster)e;
                         inventory.Weapon.Attack(e);
                     }
+                    else if (e.GetType() == typeof(Item))
+                    {
+                        
+                       
+
+                        return false;
+                    }
                     //GameController.Instance.RemoveEntity(e);
                     return true;
                 }
             }
+
+            
 
             int arrayWidth = GameController.Instance.map.MapArray.GetLength(0);
             int arrayHeight = GameController.Instance.map.MapArray.GetLength(1);
@@ -95,6 +108,32 @@
             }
 
             return false;
+        }
+
+        public void CheckCurrentPosition()
+        {
+            foreach(Entity e in gc.entities)
+            {
+                if(Pos.x == e.Pos.x && Pos.y == e.Pos.y && e is Item item)
+                {
+                    gc.screen.PrintDamageInfo($"Theres {e.name} laying on ground here. (p to pickup)");
+                }
+            }
+        }
+
+        public void PickupItem()
+        {
+            List<Entity> tempList = gc.entities.ToList();
+            foreach (Entity e in tempList)
+            {
+                if (Pos.x == e.Pos.x && Pos.y == e.Pos.y && e is Item item)
+                {
+                    
+                    gc.player.inventory.AddItem(item);
+                    gc.screen.PrintDamageInfo($"Picked up {item.name}");
+                    gc.RemoveEntity(item);
+                }
+            }
         }
     }
 }

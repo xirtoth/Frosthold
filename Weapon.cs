@@ -52,27 +52,19 @@ namespace Frosthold
         private void MeleeAttack(Entity e)
         {
             var en = (Monster)e;
-            
             var hitChance = 50 + (gc.player.Dexterity - 10) * 5;
-            var hitRoll = rand.Next(0, 100);
-            
-           
-            if(hitRoll < hitChance)
+
+            if (rand.Next(0, 100) < hitChance)
             {
-                var hitDamage = gc.player.Strength + Damage;
-                
-                
-                
-                en.TakeDamage(hitDamage);
-                gc.screen.PrintDamageInfo($"you hit {en.name} for {hitDamage} it has {en.Health} hp left");
+                en.TakeDamage(gc.player.Strength + Damage);
+                gc.screen.PrintDamageInfo($"you hit {en.name} for {gc.player.Strength + Damage} it has {en.Health} hp left");
             }
             else
             {
-                gc.screen.Write("you miss", ConsoleColor.Yellow);
-
+                gc.screen.PrintDamageInfo($"you miss {en.name}");
             }
-
         }
+
     }
 
 

@@ -96,6 +96,7 @@
                 screen.UpdateScreen();
                 var input = ReadInput().Key;
                 mkb.ip.ParseInput(input);
+                player.CheckCurrentPosition();
 
                 //liikutetaan vihollisia
                 MoveEnemies(entities);

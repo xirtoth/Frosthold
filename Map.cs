@@ -45,7 +45,7 @@
             }
             for(int i = 0; i < 5; i++)
             {
-                en.Add(new Item("Potion" + 1, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 40), rand.Next(4, 40)), ConsoleColor.Magenta));
+                en.Add(new Item("Potion" + i, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 40), rand.Next(4, 40)), ConsoleColor.Magenta));
             }
             
             return en;

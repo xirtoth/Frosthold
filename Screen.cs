@@ -74,11 +74,11 @@ namespace Frosthold
                         Write("#");
                     }
 
-                    if (gc.map.MapArray[i, k] == TileTypes.floor)
+                   /* if (gc.map.MapArray[i, k] == TileTypes.floor)
                     {
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write(".");
-                    }
+                    }*/
 
                     if (gc.map.MapArray[i, k] == TileTypes.entrance)
                     {
@@ -211,8 +211,13 @@ namespace Frosthold
 
         public void PrintDamageInfo(string text)
         {
-            Console.SetCursorPosition(0, Console.WindowHeight - 3);
-            Write(text, ConsoleColor.Green);
+            
+                Console.SetCursorPosition(0, Console.WindowHeight - 3);
+                int currentRow = Console.CursorTop;
+                Console.Write(text.PadRight(Console.WindowWidth));
+                Console.SetCursorPosition(0, currentRow);
+                Write(text, ConsoleColor.Green);
+           
         }
     }
 }
