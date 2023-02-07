@@ -20,7 +20,7 @@
         public bool canMove { get; set; }
 
         public ConsoleColor color;
-        
+
         private GameController gc = GameController.Instance;
 
         public Entity(string name, string description, string mark, Position pos, bool canMove)
@@ -41,15 +41,13 @@
             this.Pos = pos;
             this.mark = mark;
             this.color = color;
-           // this.type = EntityType.monster;
+            // this.type = EntityType.monster;
             this.canMove = canMove;
         }
 
         //liikutetaan entityä
         public virtual void MoveEntity(int x, int y)
         {
-            
-            
         }
 
         //asetetaan entityn piste
@@ -60,7 +58,6 @@
         }
 
         //tarkastetaan onko ruudussa johon ollaan liikkumassa toinen entity. Palatetaan true jos näin on (Tähän tarvii paljon lisää tarkastuksia tulevaisuudessa)
-    
 
         public bool CheckCollision(int x, int y)
         {
@@ -76,7 +73,6 @@
                 || (this.Pos.x + x == GameController.Instance.player.Pos.x && this.Pos.y + y == GameController.Instance.player.Pos.y);
         }
 
-
         public virtual void TakeDamage(int hitDamage)
         {
             health -= hitDamage;
@@ -85,7 +81,7 @@
 
         private void CheckDeath()
         {
-            if(health <= 0)
+            if (health <= 0)
             {
                 RemoveEntity(this);
             }

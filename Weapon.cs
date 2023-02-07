@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
     public enum WeaponType
     {
         Ranged,
         Melee
     }
+
     public class Weapon : Item
     {
-
         private static readonly Random rand = new Random();
 
         public int Range { get; set; }
@@ -44,9 +38,11 @@ namespace Frosthold
                 case WeaponType.Melee:
                     MeleeAttack(e);
                     break;
+
                 case WeaponType.Ranged:
                     RangedAttack();
                     break;
+
                 default:
                     break;
             }
@@ -77,8 +73,5 @@ namespace Frosthold
         {
             Console.Write("You cannot use " + name);
         }
-
     }
-
-
 }

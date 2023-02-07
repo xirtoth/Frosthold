@@ -27,6 +27,7 @@
             ip.AddKey(ConsoleKey.Q, () => gc.running = false);
             ip.AddKey(ConsoleKey.I, () => player.inventory.PrintInventory());
             ip.AddKey(ConsoleKey.P, () => player.PickupItem());
+            ip.AddKey(ConsoleKey.C, () => { gc.ani.AnimationType = AnimationType.Ray; gc.ani.StartPos = player.Pos; gc.ani.EndPos = gc.OldCursorPosition; gc.ani.Start(); }); 
         }
     }
 }

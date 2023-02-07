@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
     public class Monster : Entity
     {
@@ -23,7 +21,6 @@ namespace Frosthold
         }
 
         //funktio jolla otetaan vahinkoa. (ei vielä käytössä)
-     
 
         //tarkastetaan onko health 0, jos näin on kutsutaan Die() funktiota (ei vielä käytössä)
         private void CheckHealth()
@@ -33,11 +30,13 @@ namespace Frosthold
                 Die();
             }
         }
+
         public override void TakeDamage(int hitDamage)
         {
             Health -= hitDamage;
             CheckHealth();
         }
+
         //GameControllerin instancesta kutsutaan RemoveEntity metodia ja annetaan parametriks tämä instance.
         public void Die()
         {
@@ -55,18 +54,10 @@ namespace Frosthold
             //poistetaan merkki ruudusta josta liikuttiin
             GameController.Instance.screen.RemoveMark(oldPos.x, oldPos.y);
 
-             this.Pos.x = Math.Max(1, Math.Min(GameController.Instance.screen.Width - 2, this.Pos.x + x));
-             this.Pos.y = Math.Max(1, Math.Min(GameController.Instance.screen.Height - 2, this.Pos.y + y));
-            
-            
-          
+            this.Pos.x = Math.Max(1, Math.Min(GameController.Instance.screen.Width - 2, this.Pos.x + x));
+            this.Pos.y = Math.Max(1, Math.Min(GameController.Instance.screen.Height - 2, this.Pos.y + y));
         }
-      
-         
-        
-        
 
-        
         public void MoveTowardsPlayerWithRandomness()
         {
             Random rand = new Random();
@@ -120,14 +111,11 @@ namespace Frosthold
             }
         }
 
-
-
         public double GetDistanceFromPlayer()
         {
             int xDiff = GameController.Instance.player.Pos.x - Pos.x;
             int yDiff = GameController.Instance.player.Pos.y - Pos.y;
             return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
         }
-
     }
 }

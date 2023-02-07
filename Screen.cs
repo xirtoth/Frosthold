@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Frosthold
 {
@@ -29,7 +28,7 @@ namespace Frosthold
             this.entities = entities;
 
             IntPtr consoleWindow = GetConsoleWindow();
-           
+
             if (consoleWindow != IntPtr.Zero)
             {
                 ShowWindow(consoleWindow, 3);
@@ -42,8 +41,7 @@ namespace Frosthold
             Console.SetWindowPosition(0, 0);
 
             Console.SetBufferSize(Width, Height);
-            
-          
+
             Clear();
             PrintMap();
             PrintPlayer();
@@ -75,11 +73,11 @@ namespace Frosthold
                         Write("#");
                     }
 
-                   /* if (gc.map.MapArray[i, k] == TileTypes.floor)
-                    {
-                        Console.SetCursorPosition(i - 1, k - 1);
-                        Write(".");
-                    }*/
+                    /* if (gc.map.MapArray[i, k] == TileTypes.floor)
+                     {
+                         Console.SetCursorPosition(i - 1, k - 1);
+                         Write(".");
+                     }*/
 
                     if (gc.map.MapArray[i, k] == TileTypes.entrance)
                     {
@@ -91,7 +89,6 @@ namespace Frosthold
                         Console.SetCursorPosition(i - 1, k - 1);
                         Write("<", ConsoleColor.Green);
                     }
-                   
                 }
             }
         }
@@ -140,7 +137,6 @@ namespace Frosthold
             Console.SetCursorPosition(0, Console.WindowHeight - 2);
             Write($"{gc.player.PlayerName} {gc.player.Health}/{gc.player.MaxHealth} Gold: {gc.player.inventory.gold} Floor: {gc.floor}");
         }
-
 
         //tyhjennetään ruutu
         public void Clear()
@@ -213,13 +209,11 @@ namespace Frosthold
 
         public void PrintDamageInfo(string text)
         {
-            
-                Console.SetCursorPosition(0, Console.WindowHeight - 3);
-                int currentRow = Console.CursorTop;
-                Console.Write(text.PadRight(Console.WindowWidth));
-                Console.SetCursorPosition(0, currentRow);
-                //Write(text, ConsoleColor.Green);
-           
+            Console.SetCursorPosition(0, Console.WindowHeight - 3);
+            int currentRow = Console.CursorTop;
+            Console.Write(text.PadRight(Console.WindowWidth));
+            Console.SetCursorPosition(0, currentRow);
+            //Write(text, ConsoleColor.Green);
         }
     }
 }

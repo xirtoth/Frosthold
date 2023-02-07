@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace Frosthold
+﻿namespace Frosthold
 {
     public class Player
     {
@@ -29,7 +27,7 @@ namespace Frosthold
             Strength = str;
             Dexterity = dex;
             Intelligence = intt;
-            
+
             inventory.Weapon = WeaponGenerator.GetRandomCommonWeapon();
         }
 
@@ -81,18 +79,13 @@ namespace Frosthold
                     }
                     else if (e.GetType() == typeof(Item) || e.GetType() == typeof(Weapon))
                     {
-                        
-                       
-
                         return false;
                     }
-                 
+
                     //GameController.Instance.RemoveEntity(e);
                     return true;
                 }
             }
-
-            
 
             int arrayWidth = GameController.Instance.map.MapArray.GetLength(0);
             int arrayHeight = GameController.Instance.map.MapArray.GetLength(1);
@@ -110,9 +103,9 @@ namespace Frosthold
 
         public void CheckCurrentPosition()
         {
-            foreach(Entity e in gc.entities)
+            foreach (Entity e in gc.entities)
             {
-                if(Pos.x == e.Pos.x && Pos.y == e.Pos.y && e is Item item)
+                if (Pos.x == e.Pos.x && Pos.y == e.Pos.y && e is Item item)
                 {
                     gc.screen.PrintDamageInfo($"Theres {e.name} laying on ground here. (p to pickup)");
                 }
@@ -126,7 +119,6 @@ namespace Frosthold
             {
                 if (Pos.x == e.Pos.x && Pos.y == e.Pos.y && e is Item item)
                 {
-                    
                     gc.player.inventory.AddItem(item);
                     gc.screen.PrintDamageInfo($"Picked up {item.name}");
                     gc.RemoveEntity(item);

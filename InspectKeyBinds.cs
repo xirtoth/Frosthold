@@ -15,7 +15,7 @@
 
         private void AddBinds()
         {
-            this.ip.AddKey(ConsoleKey.Spacebar, () => gc.inspecting = false);
+            this.ip.AddKey(ConsoleKey.Spacebar, () =>  gc.inspecting = false);
 
             ip.AddKey(ConsoleKey.RightArrow, () => gc.screen.MoveCursor(1, 0));
             ip.AddKey(ConsoleKey.LeftArrow, () => gc.screen.MoveCursor(-1, 0));

@@ -16,13 +16,15 @@
         public MainInputs? mkb { get; set; }
         public Map? map;
         public Map? map2;
-
+        public Animation ani;
         // public KeyBinds mainKeys;
         public int floor { get; set; }
 
         public bool inspecting { get; set; }
 
         public bool running { get; set; }
+
+        public Position OldCursorPosition { get; set; }
 
         public GameController()
         {
@@ -33,6 +35,7 @@
         //Luodaan tarvittavat muuttujat
         public void Init()
         {
+            ani = new Animation();
             PrintIntroScreen();
             this.floor = 1;
             this.inspecting = false;
@@ -108,9 +111,9 @@
         private void CheckRandomEvents()
         {
             Random rand = new Random();
-            if (frames % 2 == 0)
+            if (frames % 5 == 0)
             {
-                entities[1].MoveEntity(rand.Next(-1, 1), rand.Next(-1, 1));
+                player.Health += 5;
             }
         }
 
@@ -120,15 +123,10 @@
             Random rand = new Random();
             foreach (Entity e in entities)
             {
-                /* if (e is Monster)
-                 {
-                     var oldPos = e.Pos;
-                     Monster m = (Monster)e;
-                     m.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
-                 }*/
+             
                 if (e.canMove)
                 {
-                    //e.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                    
                     if (e.GetType() == typeof(Monster))
                     {
                         var en = (Monster)e;
@@ -158,9 +156,11 @@
             {
                 var input = ReadInput();
                 ikb.ip.ParseInput(input.Key);
-
                 var cursorOldPosition = Console.GetCursorPosition();
+                OldCursorPosition = new Position (Console.GetCursorPosition().Left, Console.GetCursorPosition().Top);
+                
                 var entityAtCursor = entities.FirstOrDefault(e => e.Pos.x == Console.CursorLeft && e.Pos.y == Console.CursorTop);
+                
                 if (entityAtCursor != null)
                 {
                     var entityInfo = $"{entityAtCursor.name} {entityAtCursor.description}";
@@ -169,13 +169,17 @@
                         entityInfo += $" Hp:{m.Health}/{m.MaxHealth}";
                     }
                     screen.PrintEntityInfo(entityInfo);
+                   
                 }
                 else
                 {
                     screen.PrintEntityInfo("");
                 }
                 Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
+
             }
+            
+
         }
 
         internal void ChangeMap()

@@ -14,7 +14,7 @@
         public Position ExitPos { get; set; }
 
         public List<Entity> entities { get; set; }
-        
+
         public int Width { get; set; }
         public int Height { get; set; }
         private int Rooms { get; set; }
@@ -43,7 +43,7 @@
             {
                 en.Add(new Monster("keijo" + i, "iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
             }
-            for(int i = 0; i < 5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 en.Add(new Item("Potion" + i, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 40), rand.Next(4, 40)), ConsoleColor.Magenta));
             }
