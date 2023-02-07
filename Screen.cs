@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Frosthold
 {
@@ -203,10 +204,11 @@ namespace Frosthold
             this.map = map;
         }
 
-        public void PrintEntityInfo(string v)
+        public void PrintEntityInfo(string text)
         {
             Console.SetCursorPosition(0, Console.WindowHeight - 4);
-            Write(v, ConsoleColor.Red);
+            Write(text.PadRight(Console.WindowWidth), ConsoleColor.Red);
+            //Write(text, ConsoleColor.Red);
         }
 
         public void PrintDamageInfo(string text)
@@ -216,7 +218,7 @@ namespace Frosthold
                 int currentRow = Console.CursorTop;
                 Console.Write(text.PadRight(Console.WindowWidth));
                 Console.SetCursorPosition(0, currentRow);
-                Write(text, ConsoleColor.Green);
+                //Write(text, ConsoleColor.Green);
            
         }
     }

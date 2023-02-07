@@ -19,6 +19,7 @@
 
         // public KeyBinds mainKeys;
         public int floor { get; set; }
+
         public bool inspecting { get; set; }
 
         public bool running { get; set; }
@@ -32,17 +33,14 @@
         //Luodaan tarvittavat muuttujat
         public void Init()
         {
-
-
             PrintIntroScreen();
             this.floor = 1;
             this.inspecting = false;
             Random rnd = new Random();
             GenerateLevel();
-            
+
             this.player = CreatePlayer();
 
-            
             player.Pos = map.EntrancePos;
             screen = new Screen(SCREEN_WIDTH, SCREEN_HEIGHT);
             this.running = true;
@@ -101,8 +99,6 @@
                 //liikutetaan vihollisia
                 MoveEnemies(entities);
 
-                
-
                 frames++;
             }
             screen.Clear();
@@ -124,26 +120,25 @@
             Random rand = new Random();
             foreach (Entity e in entities)
             {
-               /* if (e is Monster)
-                {
-                    var oldPos = e.Pos;
-                    Monster m = (Monster)e;
-                    m.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
-                }*/
-               if(e.canMove)
+                /* if (e is Monster)
+                 {
+                     var oldPos = e.Pos;
+                     Monster m = (Monster)e;
+                     m.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                 }*/
+                if (e.canMove)
                 {
                     //e.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
-                    if(e.GetType() == typeof(Monster))
+                    if (e.GetType() == typeof(Monster))
                     {
                         var en = (Monster)e;
                         en.MoveTowardsPlayerWithRandomness();
                     }
                 }
-               if(e.type == Entity.EntityType.item)
+                if (e.type == Entity.EntityType.item)
                 {
-                    e.MoveEntity(1,1);
+                    e.MoveEntity(1, 1);
                 }
-
             }
         }
 
@@ -164,32 +159,34 @@
                 var input = ReadInput();
                 ikb.ip.ParseInput(input.Key);
 
-                foreach (Entity e in entities)
+                var cursorOldPosition = Console.GetCursorPosition();
+                var entityAtCursor = entities.FirstOrDefault(e => e.Pos.x == Console.CursorLeft && e.Pos.y == Console.CursorTop);
+                if (entityAtCursor != null)
                 {
-                    if (e.Pos.x == Console.CursorLeft && e.Pos.y == Console.CursorTop)
+                    var entityInfo = $"{entityAtCursor.name} {entityAtCursor.description}";
+                    if (entityAtCursor is Monster m)
                     {
-                        var cursorOldPosition = Console.GetCursorPosition();
-                        Console.SetCursorPosition(25, 25);
-                        if (e.GetType() == typeof(Monster))
-                        {
-                            var en = (Monster)e;
-                            screen.PrintEntityInfo($"{en.name} {en.description} Hp:{en.Health}/{en.MaxHealth}");
-                            Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
-                        }
+                        entityInfo += $" Hp:{m.Health}/{m.MaxHealth}";
                     }
+                    screen.PrintEntityInfo(entityInfo);
                 }
+                else
+                {
+                    screen.PrintEntityInfo("");
+                }
+                Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
             }
         }
 
         internal void ChangeMap()
         {
             Random rand = new Random();
-            map2 = new Map(MAP_WIDTH, MAP_HEIGHT, rand.Next(1,4));
+            map2 = new Map(MAP_WIDTH, MAP_HEIGHT, rand.Next(1, 4));
             map2.GenerateMap();
             this.map = map2;
             this.entities = map2.entities;
             this.player.Pos = map2.EntrancePos;
-            
+
             screen.DrawNewMap();
             floor++;
         }

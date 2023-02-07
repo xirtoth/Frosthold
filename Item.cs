@@ -26,5 +26,10 @@
         {
 
         }
+
+        public virtual void UseItem()
+        {
+            GameController.Instance.screen.Write($"used {name}", ConsoleColor.Red);
+        }
     }
 }

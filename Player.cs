@@ -29,10 +29,7 @@ namespace Frosthold
             Strength = str;
             Dexterity = dex;
             Intelligence = intt;
-            for (int i = 0; i < 10; i++)
-            {
-                inventory.AddItem(new Item("test", "testi", 1, 1, "$", new Position(10, 10), ConsoleColor.Yellow));
-            }
+            
             inventory.Weapon = WeaponGenerator.GetRandomCommonWeapon();
         }
 
@@ -74,7 +71,7 @@ namespace Frosthold
         {
             foreach (Entity e in GameController.Instance.entities)
             {
-                //katsotaan jos kohtaan mihin liikutaan on entity. (tähän lisätään myöhemmin damagen otto jne)
+                //katsotaan jos kohtaan mihin liikutaan on entity.
                 if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
                 {
                     if (e.GetType() == typeof(Monster))
@@ -82,13 +79,14 @@ namespace Frosthold
                         var en = (Monster)e;
                         inventory.Weapon.Attack(e);
                     }
-                    else if (e.GetType() == typeof(Item))
+                    else if (e.GetType() == typeof(Item) || e.GetType() == typeof(Weapon))
                     {
                         
                        
 
                         return false;
                     }
+                 
                     //GameController.Instance.RemoveEntity(e);
                     return true;
                 }

@@ -47,7 +47,7 @@
             {
                 en.Add(new Item("Potion" + i, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 40), rand.Next(4, 40)), ConsoleColor.Magenta));
             }
-            
+            en.Add(new Weapon("Testiase", "Hyvin testattava ase", 10, 1, "/", new Position(14, 14), WeaponType.Melee));
             return en;
         }
 

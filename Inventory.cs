@@ -36,13 +36,25 @@ namespace Frosthold
 
         public void PrintInventory()
         {
+            int counter = 1;
             gc.screen.Clear();
             Console.SetCursorPosition(0, 1);
             gc.screen.Write($"Equipped weapon: {Weapon.Name} (base damage {Weapon.Damage}) + strength modifier {gc.player.Strength} = {Weapon.Damage+gc.player.Strength} " + "\n", ConsoleColor.DarkYellow);
             gc.screen.Write("Inventory: ", ConsoleColor.DarkYellow);
             foreach(Item i in inventory)
             {
-                Console.WriteLine(i.name + " " + i.description);
+                Console.WriteLine($"({(char)(counter + 96)}) {i.name} {i.description}");
+                counter++;
+            }
+            Console.WriteLine("\nPress u to select item to use:");
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            if (keyInfo.Key == ConsoleKey.U)
+            {
+                Console.WriteLine("\nEnter the letter corresponding to the item you want to use:");
+                char selectedItem = Console.ReadLine().ToLower()[0];
+                int selectedIndex = selectedItem - 96;
+                Console.WriteLine($"Item {inventory[selectedIndex-1].name} selected.");
+                inventory[selectedIndex - 1].UseItem();
             }
             Console.ReadKey(true);
             gc.screen.DrawNewMap();

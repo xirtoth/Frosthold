@@ -29,6 +29,14 @@ namespace Frosthold
             WeaponType = weapontype;
         }
 
+        public Weapon(string name, string description, int damage, int range, string mark, Position pos, WeaponType weapontype) : base(name, description, 1, 1, mark, pos, ConsoleColor.DarkRed)
+        {
+            name = name;
+            Description = description;
+            Damage = damage;
+            WeaponType = weapontype;
+        }
+
         public override void Attack(Entity e)
         {
             switch (WeaponType)
@@ -63,6 +71,11 @@ namespace Frosthold
             {
                 gc.screen.PrintDamageInfo($"you miss {en.name}");
             }
+        }
+
+        public override void UseItem()
+        {
+            Console.Write("You cannot use " + name);
         }
 
     }
