@@ -132,7 +132,12 @@
                 }*/
                if(e.canMove)
                 {
-                    e.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                    //e.MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                    if(e.GetType() == typeof(Monster))
+                    {
+                        var en = (Monster)e;
+                        en.MoveTowardsPlayerWithRandomness();
+                    }
                 }
                if(e.type == Entity.EntityType.item)
                 {

@@ -13,10 +13,10 @@ namespace Frosthold
         public int Width { get; set; }
         public int Height { get; set; }
 
-        private Player player { get; set; }
-        private List<Entity> entities { get; set; }
+        private Player? player { get; set; }
+        private List<Entity>? entities { get; set; }
 
-        private Map map { get; set; }
+        private Map? map { get; set; }
 
         private GameController gc;
 
