@@ -73,7 +73,7 @@ namespace Frosthold
             int xDiff = GameController.Instance.player.Pos.x - this.Pos.x;
             int yDiff = GameController.Instance.player.Pos.y - this.Pos.y;
 
-            if (100.0 < GetDistanceFromPlayer())
+            if (10.0 < GetDistanceFromPlayer())
             {
                 MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
             }
