@@ -20,6 +20,8 @@
         public bool canMove { get; set; }
 
         public ConsoleColor color;
+        
+        private GameController gc = GameController.Instance;
 
         public Entity(string name, string description, string mark, Position pos, bool canMove)
         {
@@ -58,26 +60,22 @@
         }
 
         //tarkastetaan onko ruudussa johon ollaan liikkumassa toinen entity. Palatetaan true jos näin on (Tähän tarvii paljon lisää tarkastuksia tulevaisuudessa)
+    
+
         public bool CheckCollision(int x, int y)
         {
-            foreach (Entity e in GameController.Instance.entities)
+            foreach (Entity e in gc.entities)
             {
-                if (this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
-                {
-                    return true;
-                }
-                if (GameController.Instance.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall)
-                {
-                    return true;
-                }
-
-                if (this.Pos.x + x == GameController.Instance.player.Pos.x && this.Pos.y + y == GameController.Instance.player.Pos.y)
+                if (e != this && this.Pos.x + x == e.Pos.x && this.Pos.y + y == e.Pos.y)
                 {
                     return true;
                 }
             }
-            return false;
+
+            return gc.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall
+                || (this.Pos.x + x == GameController.Instance.player.Pos.x && this.Pos.y + y == GameController.Instance.player.Pos.y);
         }
+
 
         public virtual void TakeDamage(int hitDamage)
         {

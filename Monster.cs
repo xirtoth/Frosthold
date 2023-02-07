@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using System;
+
+namespace Frosthold
 {
     public class Monster : Entity
     {
@@ -53,25 +55,79 @@
             //poistetaan merkki ruudusta josta liikuttiin
             GameController.Instance.screen.RemoveMark(oldPos.x, oldPos.y);
 
-            this.Pos.x += x;
-            this.Pos.y += y;
+             this.Pos.x = Math.Max(1, Math.Min(GameController.Instance.screen.Width - 2, this.Pos.x + x));
+             this.Pos.y = Math.Max(1, Math.Min(GameController.Instance.screen.Height - 2, this.Pos.y + y));
+            
+            
+          
+        }
+      
+         
+        
+        
 
-            if (Pos.x >= GameController.Instance.screen.Width - 2)
+        
+        public void MoveTowardsPlayerWithRandomness()
+        {
+            Random rand = new Random();
+            int xDiff = GameController.Instance.player.Pos.x - this.Pos.x;
+            int yDiff = GameController.Instance.player.Pos.y - this.Pos.y;
+
+            if (100.0 < GetDistanceFromPlayer())
             {
-                Pos.x = GameController.Instance.screen.Width - 2;
+                MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
             }
-            if (Pos.x <= 1)
+            else
             {
-                Pos.x = 1;
-            }
-            if (Pos.y >= GameController.Instance.screen.Height - 2)
-            {
-                Pos.y = GameController.Instance.screen.Height - 2;
-            }
-            if (Pos.y <= 1)
-            {
-                Pos.y = 1;
+                if (Math.Abs(xDiff) > Math.Abs(yDiff))
+                {
+                    // Move horizontally
+
+                    if (!CheckCollision(xDiff > 0 ? 1 : -1, 0))
+                    {
+                        MoveEntity(xDiff > 0 ? 1 : -1, 0);
+                    }
+                    else
+                    {
+                        int tries = 0;
+                        while (CheckCollision(xDiff > 0 ? 1 : -1, 0) && tries < 5)
+                        {
+                            // Choose a new random direction
+                            MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                            tries++;
+                        }
+                    }
+                }
+                else
+                {
+                    // Move vertically
+
+                    if (!CheckCollision(0, yDiff > 0 ? 1 : -1))
+                    {
+                        MoveEntity(0, yDiff > 0 ? 1 : -1);
+                    }
+                    else
+                    {
+                        int tries = 0;
+                        while (CheckCollision(0, yDiff > 0 ? 1 : -1) && tries < 5)
+                        {
+                            // Choose a new random direction
+                            MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                            tries++;
+                        }
+                    }
+                }
             }
         }
+
+
+
+        public double GetDistanceFromPlayer()
+        {
+            int xDiff = GameController.Instance.player.Pos.x - Pos.x;
+            int yDiff = GameController.Instance.player.Pos.y - Pos.y;
+            return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+        }
+
     }
 }
