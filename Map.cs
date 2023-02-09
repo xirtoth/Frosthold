@@ -26,10 +26,11 @@
 
         public Map(int width, int height, int rooms)
         {
+            Console.WriteLine($"{width} {height}");
             this.Width = width;
             this.Height = height;
             this.Rooms = rooms;
-            this.MapArray = new TileTypes[width + 1, height + 1];
+            this.MapArray = new TileTypes[gc.MAP_WIDTH + 1, gc.MAP_HEIGHT + 1];
             this.RoomsList = new List<Room>();
             this.entities = CreateEntities();
         }
@@ -55,22 +56,22 @@
         public void GenerateMap()
         {
             Random rand = new Random();
-            for (int i = 0; i < Width; i++)
+            for (int i = 0; i <= Width - 1; i++)
             {
                 MapArray[i, 0] = TileTypes.wall;
-                MapArray[i, Height] = TileTypes.wall;
+                MapArray[i, Height - 1] = TileTypes.wall;
             }
-            for (int i = 0; i < Height; i++)
+            for (int i = 0; i < Height - 1; i++)
             {
                 MapArray[0, i] = TileTypes.wall;
-                MapArray[Width, i] = TileTypes.wall;
+                MapArray[Width - 1, i] = TileTypes.wall;
             }
 
             //tehdään huoneita mappiin. Katsotaan, jos huoneet ovat päällekkäisiä, jos näin on yritetään luoda uusi huone (hieman rikki)
             bool intersects = true;
             for (int i = 0; i < Rooms; i++)
             {
-                Room room = new Room(rand.Next(3, 8), rand.Next(3, 8));
+                Room room = new Room(rand.Next(3, 10), rand.Next(3, 10));
                 room.GenerateRoom();
                 RoomsList.Add(room);
                 intersects = true;
@@ -99,15 +100,18 @@
         {
             for (int x = room.room.X; x < room.room.X + room.room.Width; x++)
             {
-                MapArray[room.room.Y, x] = TileTypes.wall;
-                MapArray[room.room.Y + room.room.Height - 1, x] = TileTypes.wall;
+                MapArray[x, room.room.Y] = TileTypes.wall;
+                //Console.WriteLine($"{x} : {room.room.Top+room.room.Height} {room.room.Left}");
+                MapArray[x, room.room.Y + room.room.Height] = TileTypes.wall;
             }
 
             for (int y = room.room.Y; y < room.room.Y + room.room.Height; y++)
             {
-                MapArray[y, room.room.X] = TileTypes.wall;
-                MapArray[y, room.room.X + room.room.Width - 1] = TileTypes.wall;
+                MapArray[room.room.X + room.room.Width, room.room.Y + room.room.Height] = TileTypes.wall;
+                MapArray[room.room.X + room.room.Width, y] = TileTypes.wall;
+                MapArray[room.room.X, y] = TileTypes.wall;
             }
+            //mapArray[room.room.X + room.room.Width, room.room.Y + room.room.Height] = TileTypes.wall;
         }
 
         //lisätään sisään- ja uloskäynti.

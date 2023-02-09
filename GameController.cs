@@ -4,8 +4,8 @@
     {
         public int SCREEN_WIDTH = Console.LargestWindowWidth;
         public int SCREEN_HEIGHT = Console.LargestWindowHeight;
-        public const int MAP_WIDTH = 50;
-        public const int MAP_HEIGHT = 40;
+        public int MAP_WIDTH = 100;
+        public int MAP_HEIGHT = 24;
         public static GameController? Instance { get; set; }
         public Player? player;
         public List<Entity> entities { get; set; }
@@ -17,6 +17,7 @@
         public Map? map;
         public Map? map2;
         public Animation ani;
+
         // public KeyBinds mainKeys;
         public int floor { get; set; }
 
@@ -40,9 +41,9 @@
             this.floor = 1;
             this.inspecting = false;
             Random rnd = new Random();
-            GenerateLevel();
 
             this.player = CreatePlayer();
+            GenerateLevel();
 
             player.Pos = map.EntrancePos;
             screen = new Screen(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -59,7 +60,7 @@
         {
             Random rand = new Random();
             //Map map = new Map(50, 50, 3);
-            Map map = new Map(MAP_WIDTH, MAP_HEIGHT, 3);
+            Map map = new Map(MAP_WIDTH + 1, MAP_HEIGHT + 1, 2);
             map.GenerateMap();
             this.map = map;
             this.entities = map.entities;
@@ -123,10 +124,8 @@
             Random rand = new Random();
             foreach (Entity e in entities)
             {
-             
                 if (e.canMove)
                 {
-                    
                     if (e.GetType() == typeof(Monster))
                     {
                         var en = (Monster)e;
@@ -157,10 +156,10 @@
                 var input = ReadInput();
                 ikb.ip.ParseInput(input.Key);
                 var cursorOldPosition = Console.GetCursorPosition();
-                OldCursorPosition = new Position (Console.GetCursorPosition().Left, Console.GetCursorPosition().Top);
-                
+                OldCursorPosition = new Position(Console.GetCursorPosition().Left, Console.GetCursorPosition().Top);
+
                 var entityAtCursor = entities.FirstOrDefault(e => e.Pos.x == Console.CursorLeft && e.Pos.y == Console.CursorTop);
-                
+
                 if (entityAtCursor != null)
                 {
                     var entityInfo = $"{entityAtCursor.name} {entityAtCursor.description}";
@@ -169,23 +168,19 @@
                         entityInfo += $" Hp:{m.Health}/{m.MaxHealth}";
                     }
                     screen.PrintEntityInfo(entityInfo);
-                   
                 }
                 else
                 {
                     screen.PrintEntityInfo("");
                 }
                 Console.SetCursorPosition(cursorOldPosition.Left, cursorOldPosition.Top);
-
             }
-            
-
         }
 
         internal void ChangeMap()
         {
             Random rand = new Random();
-            map2 = new Map(MAP_WIDTH, MAP_HEIGHT, rand.Next(1, 4));
+            map2 = new Map(MAP_WIDTH + 1, MAP_HEIGHT + 1, rand.Next(1, 10));
             map2.GenerateMap();
             this.map = map2;
             this.entities = map2.entities;

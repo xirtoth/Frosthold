@@ -31,6 +31,10 @@
             {
                 case AnimationType.Ray:
 
+                    if(EndPos == null)
+                    {
+                        return;
+                    }
                     int deltaX = EndPos.x - StartPos.x;
                     int deltaY = EndPos.y - StartPos.y;
                     int steps = Math.Max(Math.Abs(deltaX), Math.Abs(deltaY));
