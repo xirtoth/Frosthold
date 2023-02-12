@@ -6,6 +6,9 @@
         public int MaxHealth { get; set; }
         public int Damage { get; set; }
 
+        private GameController gc = GameController.Instance;
+        private static readonly Random rand = new();
+
         //perus constructori käytetään entity luokaa pohjana.
         public Monster(string name, string description, string mark, Position pos) : base(name, description, mark, pos, true)
         {
@@ -46,11 +49,19 @@
         public override void MoveEntity(int x, int y)
         {
             var oldPos = this.Pos;
+            /* if (CheckIfPlayer(Math.Max(1, Math.Min(GameController.Instance.screen.Width - 2, this.Pos.x + x)), Math.Max(1, Math.Min(GameController.Instance.screen.Height - 2, this.Pos.y + y))))
+             {
+                 gc.screen.PrintDamageInfo($"{name} hits you for {Damage}. Damage");
+                 gc.player.TakeDamage(Damage);
+                 return;
+             }*/
+
             //tarkastetaan onko esteitä (tätä voi parantaa)
             if (base.CheckCollision(x, y))
             {
                 return;
             }
+
             //poistetaan merkki ruudusta josta liikuttiin
             GameController.Instance.screen.RemoveMark(oldPos.x, oldPos.y);
 
@@ -60,55 +71,46 @@
 
         public void MoveTowardsPlayerWithRandomness()
         {
-            Random rand = new Random();
+            if (GetDistanceFromPlayer() < 1.5)
+            {
+                gc.screen.PrintDamageInfo($"{name} hits you for {Damage} Damage");
+                gc.player.TakeDamage(Damage);
+                return;
+            }
+
             int xDiff = GameController.Instance.player.Pos.x - this.Pos.x;
             int yDiff = GameController.Instance.player.Pos.y - this.Pos.y;
+            int xMove = 0, yMove = 0;
 
             if (10.0 < GetDistanceFromPlayer())
             {
-                MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
+                xMove = rand.Next(-1, 2);
+                yMove = rand.Next(-1, 2);
             }
             else
             {
                 if (Math.Abs(xDiff) > Math.Abs(yDiff))
                 {
-                    // Move horizontally
-
-                    if (!CheckCollision(xDiff > 0 ? 1 : -1, 0))
-                    {
-                        MoveEntity(xDiff > 0 ? 1 : -1, 0);
-                    }
-                    else
-                    {
-                        int tries = 0;
-                        while (CheckCollision(xDiff > 0 ? 1 : -1, 0) && tries < 5)
-                        {
-                            // Choose a new random direction
-                            MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
-                            tries++;
-                        }
-                    }
+                    xMove = xDiff > 0 ? 1 : -1;
                 }
                 else
                 {
-                    // Move vertically
+                    yMove = yDiff > 0 ? 1 : -1;
+                }
 
-                    if (!CheckCollision(0, yDiff > 0 ? 1 : -1))
+                if (CheckCollision(xMove, yMove))
+                {
+                    int tries = 0;
+                    while (CheckCollision(xMove, yMove) && tries < 5)
                     {
-                        MoveEntity(0, yDiff > 0 ? 1 : -1);
-                    }
-                    else
-                    {
-                        int tries = 0;
-                        while (CheckCollision(0, yDiff > 0 ? 1 : -1) && tries < 5)
-                        {
-                            // Choose a new random direction
-                            MoveEntity(rand.Next(-1, 2), rand.Next(-1, 2));
-                            tries++;
-                        }
+                        xMove = rand.Next(-1, 2);
+                        yMove = rand.Next(-1, 2);
+                        tries++;
                     }
                 }
             }
+
+            MoveEntity(xMove, yMove);
         }
 
         public double GetDistanceFromPlayer()
@@ -116,6 +118,15 @@
             int xDiff = GameController.Instance.player.Pos.x - Pos.x;
             int yDiff = GameController.Instance.player.Pos.y - Pos.y;
             return Math.Sqrt(xDiff * xDiff + yDiff * yDiff);
+        }
+
+        public bool CheckIfPlayer(int x, int y)
+        {
+            if (x == gc.player.Pos.x && y == gc.player.Pos.y)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

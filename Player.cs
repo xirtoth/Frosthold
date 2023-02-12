@@ -32,6 +32,40 @@
         }
 
         //liikutetaan pelaajaa x ja y muuttujien mukaisesti
+        /* public void MovePlayer(int x, int y)
+         {
+             if (CheckCollision(x, y))
+             {
+                 return;
+             }
+             GameController.Instance.screen.RemoveMark(this.Pos.x, this.Pos.y);
+
+             this.Pos.x += x;
+             this.Pos.y += y;
+
+             if (this.Pos.x == GameController.Instance.map.ExitPos.x && this.Pos.y == GameController.Instance.map.ExitPos.y)
+             {
+                 GameController.Instance.ChangeMap();
+             }
+             //tarkastetaan että ei mennä ruudun yli
+             if (Pos.x >= GameController.Instance.screen.Width - 1)
+             {
+                 Pos.x = GameController.Instance.screen.Width - 1;
+             }
+             if (Pos.x <= 0)
+             {
+                 Pos.x = 0;
+             }
+             if (Pos.y >= GameController.Instance.screen.Height - 1)
+             {
+                 Pos.y = GameController.Instance.screen.Height - 1;
+             }
+             if (Pos.y <= 0)
+             {
+                 Pos.y = 0;
+             }
+         }*/
+
         public void MovePlayer(int x, int y)
         {
             if (CheckCollision(x, y))
@@ -42,27 +76,14 @@
 
             this.Pos.x += x;
             this.Pos.y += y;
+
             if (this.Pos.x == GameController.Instance.map.ExitPos.x && this.Pos.y == GameController.Instance.map.ExitPos.y)
             {
                 GameController.Instance.ChangeMap();
             }
             //tarkastetaan että ei mennä ruudun yli
-            if (Pos.x >= GameController.Instance.screen.Width - 1)
-            {
-                Pos.x = GameController.Instance.screen.Width - 1;
-            }
-            if (Pos.x <= 0)
-            {
-                Pos.x = 0;
-            }
-            if (Pos.y >= GameController.Instance.screen.Height - 1)
-            {
-                Pos.y = GameController.Instance.screen.Height - 1;
-            }
-            if (Pos.y <= 0)
-            {
-                Pos.y = 0;
-            }
+            this.Pos.x = Math.Min(Math.Max(this.Pos.x, 0), GameController.Instance.screen.Width - 1);
+            this.Pos.y = Math.Min(Math.Max(this.Pos.y, 0), GameController.Instance.screen.Height - 1);
         }
 
         private bool CheckCollision(int x, int y)
@@ -123,6 +144,20 @@
                     gc.screen.PrintDamageInfo($"Picked up {item.name}");
                     gc.RemoveEntity(item);
                 }
+            }
+        }
+
+        public void TakeDamage(int amount)
+        {
+            Health -= amount;
+            CheckDeath();
+        }
+
+        private void CheckDeath()
+        {
+            if (Health <= 0)
+            {
+                gc.running = false;
             }
         }
     }
