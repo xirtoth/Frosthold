@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using Newtonsoft.Json;
+
+namespace Frosthold
 {
     public enum TileTypes
     {
@@ -6,11 +8,26 @@
         wall,
         door,
         entrance,
-        exit
+        exit,
+        openDoor
     }
 
     public class Map
     {
+        private List<(string Name, string Symbol, ConsoleColor Color)> monsterList = new List<(string, string, ConsoleColor)>
+{
+    ("Minotaur", "M", ConsoleColor.Red),
+    ("Medusa", "M", ConsoleColor.Green),
+    ("Mothman", "M", ConsoleColor.Yellow),
+    ("Manticore", "M", ConsoleColor.DarkMagenta),
+    ("Chimera", "C", ConsoleColor.Cyan),
+    ("Hydra", "H", ConsoleColor.DarkRed),
+    ("Gorgon", "G", ConsoleColor.DarkGreen),
+    ("Phoenix", "P", ConsoleColor.DarkYellow),
+    ("Dragon", "D", ConsoleColor.DarkCyan),
+    ("Vampire", "V", ConsoleColor.DarkGray)
+};
+
         public Position EntrancePos { get; set; }
         public Position ExitPos { get; set; }
 
@@ -25,6 +42,8 @@
 
         private GameController gc = GameController.Instance;
 
+        private static readonly Random rand = new();
+
         public Map(int width, int height, int rooms)
         {
             Console.WriteLine($"{width} {height}");
@@ -38,16 +57,17 @@
 
         private List<Entity>? CreateEntities()
         {
-            Random rand = new Random();
             var count = rand.Next(1, 10);
             List<Entity> en = new List<Entity>();
             for (int i = 0; i < count; i++)
             {
-                en.Add(new Monster("keijo" + i, "iso paha kissa", "K", 100, 100, 2, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
+                var randomIndex = rand.Next(0, monsterList.Count);
+                var randomMonster = Data.monsterList[randomIndex];
+                en.Add(new Monster(randomMonster.Name, "", randomMonster.Symbol, 100, 100, 2, new Position(rand.Next(1, Width - 2), rand.Next(1, Height - 10)), randomMonster.Color));
             }
             for (int i = 0; i < 5; i++)
             {
-                en.Add(new Item("Potion" + i, "Healing potion", 1, 1, "?", new Position(rand.Next(4, 40), rand.Next(4, 40)), ConsoleColor.Magenta));
+                en.Add(new Item("Potion" + i, "Healing potion", 1, 1, "?", () => gc.messageLog.AddMessage("used Healing potion"), new Position(rand.Next(1, Width - 2), rand.Next(1, Height - 2)), ConsoleColor.Magenta));
             }
             en.Add(new Weapon("Testiase", "Hyvin testattava ase", 10, 1, "/", new Position(14, 14), WeaponType.Melee));
             return en;
@@ -56,7 +76,7 @@
         //luodaan map itemi. ja määritellään seinät
         public void GenerateMap()
         {
-            Random rand = new Random();
+            //Random rand = new Random();
             for (int i = 0; i <= Width - 1; i++)
             {
                 MapArray[i, 0] = TileTypes.wall;
@@ -112,7 +132,8 @@
                 MapArray[room.room.X + room.room.Width, y] = TileTypes.wall;
                 MapArray[room.room.X, y] = TileTypes.wall;
             }
-            //mapArray[room.room.X + room.room.Width, room.room.Y + room.room.Height] = TileTypes.wall;
+            MapArray[room.room.Left + 2, room.room.Bottom] = TileTypes.door;
+            MapArray[room.room.Left + 2, room.room.Top] = TileTypes.door;
         }
 
         //lisätään sisään- ja uloskäynti.

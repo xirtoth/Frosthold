@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using Newtonsoft.Json;
+
+namespace Frosthold
 {
     public class Entity
     {
@@ -34,6 +36,7 @@
             this.canMove = canMove;
         }
 
+        [JsonConstructor]
         public Entity(string name, string description, string mark, Position pos, bool canMove, ConsoleColor color)
         {
             this.name = name;
@@ -69,8 +72,8 @@
                 }
             }
 
-            return gc.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall
-                || (this.Pos.x + x == GameController.Instance.player.Pos.x && this.Pos.y + y == GameController.Instance.player.Pos.y);
+            return gc.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall || gc.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.door
+                || (this.Pos.x + x == gc.player.Pos.x && this.Pos.y + y == gc.player.Pos.y);
         }
 
         public virtual void TakeDamage(int hitDamage)
@@ -83,13 +86,14 @@
         {
             if (health <= 0)
             {
+                gc.messageLog.AddMessage($"{name} dies.");
                 RemoveEntity(this);
             }
         }
 
         public void RemoveEntity(Entity entity)
         {
-            GameController.Instance.RemoveEntity(entity);
+            gc.RemoveEntity(entity);
         }
     }
 }

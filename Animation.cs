@@ -4,6 +4,7 @@
     {
         Ray,
         Explosion,
+        Aura
     }
 
     public class Animation
@@ -12,6 +13,8 @@
         public Position StartPos;
         public Position EndPos;
         private GameController gc = GameController.Instance;
+        private AnimationType aura;
+        private Position pos;
 
         public Animation(AnimationType anim, Position startPos, Position endPos)
         {
@@ -24,6 +27,12 @@
         {
         }
 
+        public Animation(AnimationType aura, Position pos)
+        {
+            this.AnimationType = aura;
+            this.pos = pos;
+        }
+
         public void Start()
         {
             List<Position> oldSteps = new List<Position>();
@@ -31,7 +40,7 @@
             {
                 case AnimationType.Ray:
 
-                    if(EndPos == null)
+                    if (EndPos == null)
                     {
                         return;
                     }
@@ -43,7 +52,7 @@
                     {
                         int x = StartPos.x + (i * deltaX / steps);
                         int y = StartPos.y + (i * deltaY / steps);
-                        oldSteps.Add(new Position(x,y));
+                        oldSteps.Add(new Position(x, y));
                         Console.SetCursorPosition(x, y);
                         Console.Write("*");
                         Thread.Sleep(5);
@@ -58,7 +67,43 @@
                     gc.screen.PrintMap();
                     break;
 
+                case AnimationType.Aura:
+
+                    gc.screen.Clear();
+                    gc.screen.DrawNewMap();
+                    int playerX = gc.player.Pos.x;
+                    int playerY = gc.player.Pos.y;
+                    Console.SetCursorPosition(playerX, playerY);
+                    //Console.Write("DEBUG");
+
+                    for (int i = playerX - 1; i <= playerX + 1; i++)
+                    {
+                        for (int j = playerY - 1; j <= playerY + 1; j++)
+                        {
+                            Console.SetCursorPosition(i, j);
+
+                            Console.BackgroundColor = ConsoleColor.Green;
+                            switch (gc.map.MapArray[i - 1, j - 1])
+                            {
+                                case TileTypes.floor:
+                                    Screen.Write(".");
+                                    break;
+
+                                case TileTypes.wall:
+                                    Screen.Write("#");
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+
+                    Console.ResetColor();
+                    break;
+
                 default:
+                    Console.Write("HGMMMMMMMMMMMMM");
                     return;
             }
         }

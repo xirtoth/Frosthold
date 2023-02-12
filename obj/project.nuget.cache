@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "IQ38qxcgn1Jhd2hlwPECQQV9sEjmrn0d/QJzDt6g9i6BgLCt54OOSCQa9jn86Pw7JZqb/rU+C4VRiZP1VtE68w==",
+  "dgSpecHash": "3FZSpfxBIqEPFzNOOh2wr6gpeqBop6EoHefmrb+CEm+LcTOTXDr6XbM7Li+m9ZX2Agc8kPzGk4R4AqkqHwTBDA==",
   "success": true,
   "projectFilePath": "D:\\ohjelmointi\\c#\\Frosthold\\Frosthold\\Frosthold\\Frosthold.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\henry\\.nuget\\packages\\newtonsoft.json\\13.0.2\\newtonsoft.json.13.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

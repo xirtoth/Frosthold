@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using Newtonsoft.Json;
+
+namespace Frosthold
 {
     public class Monster : Entity
     {
@@ -6,7 +8,11 @@
         public int MaxHealth { get; set; }
         public int Damage { get; set; }
 
+        public Inventory Inventory { get; set; }
+
+        [JsonIgnore]
         private GameController gc = GameController.Instance;
+
         private static readonly Random rand = new();
 
         //perus constructori käytetään entity luokaa pohjana.
@@ -21,6 +27,8 @@
             this.Health = health;
             this.MaxHealth = maxHealth;
             this.Damage = damage;
+            this.Inventory = new Inventory(10);
+            Inventory.Weapon = WeaponGenerator.GetRandomCommonWeapon();
         }
 
         //funktio jolla otetaan vahinkoa. (ei vielä käytössä)
@@ -30,6 +38,7 @@
         {
             if (Health <= 0)
             {
+                gc.messageLog.AddMessage($"{name} dies.");
                 Die();
             }
         }
@@ -73,9 +82,7 @@
         {
             if (GetDistanceFromPlayer() < 1.5)
             {
-                gc.screen.PrintDamageInfo($"{name} hits you for {Damage} Damage");
-                gc.player.TakeDamage(Damage);
-                return;
+                Inventory.Weapon.Attack(gc.player, this);
             }
 
             int xDiff = GameController.Instance.player.Pos.x - this.Pos.x;

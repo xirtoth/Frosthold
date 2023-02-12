@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using Newtonsoft.Json;
+
+namespace Frosthold
 {
     public class Item : Entity
     {
@@ -9,12 +11,16 @@
 
         public int Weight { get; set; }
 
-        public Item(string name, string description, int amount, int weight, string mark, Position pos, ConsoleColor color) : base(name, description, mark, pos, false, color)
+        [JsonIgnore]
+        public Action UseAction { get; set; }
+
+        public Item(string name, string description, int amount, int weight, string mark, Action useAction, Position pos, ConsoleColor color) : base(name, description, mark, pos, false, color)
         {
             this.Name = Name;
             this.Description = Description;
             this.Amount = amount;
             this.Weight = weight;
+            this.UseAction = useAction;
         }
 
         public override void MoveEntity(int x, int y)
@@ -26,9 +32,13 @@
         {
         }
 
+        public virtual void Attack(Player p, Entity attacker)
+        {
+        }
+
         public virtual void UseItem()
         {
-            GameController.Instance.screen.Write($"used {name}", ConsoleColor.Red);
+            UseAction.Invoke();
         }
     }
 }

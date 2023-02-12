@@ -13,3 +13,5 @@ D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\refint\Frosthol
 D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.pdb
 D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.genruntimeconfig.cache
 D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\ref\Frosthold.dll
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\ohjelmointi\c#\Frosthold\Frosthold\Frosthold\obj\Debug\net6.0\Frosthold.csproj.CopyComplete
