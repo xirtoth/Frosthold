@@ -81,12 +81,12 @@ namespace Frosthold
 
                     if (gc.map.MapArray[i, k] == TileTypes.entrance)
                     {
-                        Console.SetCursorPosition(i - 1, k - 1);
+                        Console.SetCursorPosition(i, k);
                         Write(">", ConsoleColor.Green);
                     }
                     if (gc.map.MapArray[i, k] == TileTypes.exit)
                     {
-                        Console.SetCursorPosition(i - 1, k - 1);
+                        Console.SetCursorPosition(i, k);
                         Write("<", ConsoleColor.Green);
                     }
                 }
@@ -108,21 +108,22 @@ namespace Frosthold
         {
             //Clear();
             //PrintMap();
-            PrintEnterAndExit();
+
             PrintEntities();
             PrintPlayerStats();
+            //PrintEnterAndExit();
             //PrintEnterAndExit();
             PrintPlayer();
             //PrintEnterAndExit();
         }
 
-        private void PrintEnterAndExit()
+        public void PrintEnterAndExit()
         {
             //Console.SetCursorPosition(GameController.Instance.map.ExitPos.x, GameController.Instance.map.ExitPos.y);
-            Write("<", gc.map.ExitPos, ConsoleColor.Yellow);
+            Write(">", gc.map.EntrancePos, ConsoleColor.Blue);
+            Write("<", gc.map.ExitPos, ConsoleColor.DarkYellow);
 
-            //Console.SetCursorPosition(GameController.Instance.map.EntrancePos.x, GameController.Instance.map.EntrancePos.y);
-            Write("!", gc.map.EntrancePos, ConsoleColor.Yellow);
+            // Console.SetCursorPosition(GameController.Instance.map.EntrancePos.x, GameController.Instance.map.EntrancePos.y);
         }
 
         private void Write(string text, Position pos, ConsoleColor color)
@@ -173,14 +174,14 @@ namespace Frosthold
             Console.Write(text);
         }
 
-        internal void RemoveMark(int x, int y)
+        public void RemoveMark(int x, int y)
         {
             Console.CursorVisible = false;
             Console.SetCursorPosition(x, y);
             Console.Write(" ");
         }
 
-        internal void DrawNewMap()
+        public void DrawNewMap()
         {
             /*Clear();
 

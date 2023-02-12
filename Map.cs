@@ -2,7 +2,8 @@
 {
     public enum TileTypes
     {
-        floor, wall,
+        floor,
+        wall,
         door,
         entrance,
         exit
@@ -42,7 +43,7 @@
             List<Entity> en = new List<Entity>();
             for (int i = 0; i < count; i++)
             {
-                en.Add(new Monster("keijo" + i, "iso paha kissa", "K", 100, 100, 100, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
+                en.Add(new Monster("keijo" + i, "iso paha kissa", "K", 100, 100, 2, new Position(15, 15), (ConsoleColor)rand.Next(Enum.GetValues(typeof(ConsoleColor)).Length)));
             }
             for (int i = 0; i < 5; i++)
             {
@@ -119,13 +120,15 @@
         {
             Random rand = new Random();
 
-            var xPos = rand.Next(2, Width);
-            EntrancePos = new Position(xPos - 1, Height - 3);
-            MapArray[xPos, Height - 2] = TileTypes.entrance;
+            var xPos = rand.Next(2, Width - 2);
+            var yPos = Height - 4;
+            EntrancePos = new Position(xPos, yPos);
+            MapArray[xPos, yPos] = TileTypes.entrance;
 
-            xPos = rand.Next(2, Width);
-            ExitPos = new Position(xPos - 1, Height - Height + 1);
-            MapArray[xPos, Height - Height + 2] = TileTypes.exit;
+            xPos = rand.Next(2, Width - 2);
+            yPos = 2;
+            ExitPos = new Position(xPos, yPos);
+            MapArray[xPos, 2] = TileTypes.exit;
         }
     }
 }
