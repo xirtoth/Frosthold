@@ -1,4 +1,6 @@
-﻿namespace Frosthold
+﻿using Newtonsoft.Json;
+
+namespace Frosthold
 {
     public class Player
     {
@@ -15,6 +17,7 @@
 
         public Inventory inventory;
 
+        [JsonIgnore]
         private GameController gc = GameController.Instance;
 
         public Player(int x, int y, string name, int str, int dex, int intt)
@@ -29,6 +32,9 @@
             Intelligence = intt;
 
             inventory.Weapon = WeaponGenerator.GetRandomCommonWeapon();
+            inventory.AddItem(WeaponGenerator.GetRandomCommonWeapon());
+            inventory.AddItem(WeaponGenerator.GetRandomCommonWeapon());
+            inventory.AddItem(WeaponGenerator.GetRandomCommonWeapon());
         }
 
         //liikutetaan pelaajaa x ja y muuttujien mukaisesti
@@ -79,7 +85,7 @@
 
             if (this.Pos.x == GameController.Instance.map.ExitPos.x && this.Pos.y == GameController.Instance.map.ExitPos.y)
             {
-                GameController.Instance.ChangeMap();
+                GameController.Instance.ChangeMap(1);
             }
             //tarkastetaan että ei mennä ruudun yli
             this.Pos.x = Math.Min(Math.Max(this.Pos.x, 0), GameController.Instance.screen.Width - 1);
@@ -108,17 +114,25 @@
                 }
             }
 
-            int arrayWidth = GameController.Instance.map.MapArray.GetLength(0);
-            int arrayHeight = GameController.Instance.map.MapArray.GetLength(1);
+            int arrayWidth = gc.map.MapArray.GetLength(0);
+            int arrayHeight = gc.map.MapArray.GetLength(1);
 
             //jos ruudussa on seinä
             if (this.Pos.x + x + 1 >= 0 && this.Pos.x + x + 1 < arrayWidth &&
                 this.Pos.y + y + 1 >= 0 && this.Pos.y + y + 1 < arrayHeight &&
-                GameController.Instance.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall)
+                gc.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.wall)
             {
                 return true;
             }
-
+            if (this.Pos.x + x + 1 >= 0 && this.Pos.x + x + 1 < arrayWidth &&
+                this.Pos.y + y + 1 >= 0 && this.Pos.y + y + 1 < arrayHeight &&
+                gc.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] == TileTypes.door)
+            {
+                gc.messageLog.AddMessage("You open door");
+                gc.map.MapArray[this.Pos.x + x + 1, this.Pos.y + y + 1] = TileTypes.openDoor;
+                gc.screen.PrintMap();
+                return true;
+            }
             return false;
         }
 
@@ -157,6 +171,7 @@
         {
             if (Health <= 0)
             {
+                gc.DeleteSaveFile("File.json");
                 gc.running = false;
             }
         }

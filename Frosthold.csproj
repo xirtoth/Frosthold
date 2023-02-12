@@ -8,4 +8,8 @@
     <NoWarn>cs8602, 8602</NoWarn>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+  </ItemGroup>
+
 </Project>

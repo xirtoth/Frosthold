@@ -28,7 +28,8 @@
             ip.AddKey(ConsoleKey.I, () => player.inventory.PrintInventory());
             ip.AddKey(ConsoleKey.P, () => player.PickupItem());
             ip.AddKey(ConsoleKey.C, () => { gc.ani.AnimationType = AnimationType.Ray; gc.ani.StartPos = player.Pos; gc.ani.EndPos = gc.OldCursorPosition; gc.ani.Start(); });
-            ip.AddKey(ConsoleKey.G, () => { gc.ChangeMap(); });
+            ip.AddKey(ConsoleKey.G, () => { gc.ChangeMap(0); });
+            ip.AddKey(ConsoleKey.S, () => gc.SaveGameState("file.json"));
             ip.AddKey(ConsoleKey.NumPad7, () => gc.player.MovePlayer(-1, -1));
             ip.AddKey(ConsoleKey.NumPad8, () => gc.player.MovePlayer(0, -1));
             ip.AddKey(ConsoleKey.NumPad9, () => gc.player.MovePlayer(1, -1));

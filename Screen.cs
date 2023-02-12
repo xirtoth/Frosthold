@@ -19,6 +19,9 @@ namespace Frosthold
         private Map? map { get; set; }
 
         private GameController gc;
+        public static readonly string greenColor = "\x1B[32m";
+        public static readonly string redColor = "\x1B[33m";
+        public static readonly string resetColor = "\x1B[0m";
 
         public Screen(int width, int height)
         {
@@ -42,9 +45,9 @@ namespace Frosthold
 
             Console.SetBufferSize(Width, Height);
 
-            Clear();
-            PrintMap();
-            PrintPlayer();
+           // Clear();
+           // PrintMap();
+           // PrintPlayer();
         }
 
         //asetetaan kursori pelaajan sijaintiin ja tulostetaan @
@@ -89,6 +92,16 @@ namespace Frosthold
                         Console.SetCursorPosition(i, k);
                         Write("<", ConsoleColor.Green);
                     }
+                    if (gc.map.MapArray[i, k] == TileTypes.door)
+                    {
+                        Console.SetCursorPosition(i - 1, k - 1);
+                        Write("+", ConsoleColor.Red);
+                    }
+                    if (gc.map.MapArray[i, k] == TileTypes.openDoor)
+                    {
+                        Console.SetCursorPosition(i - 1, k - 1);
+                        Write("|", ConsoleColor.Green);
+                    }
                 }
             }
         }
@@ -113,8 +126,15 @@ namespace Frosthold
             PrintPlayerStats();
             //PrintEnterAndExit();
             //PrintEnterAndExit();
+            DrawNewMap();
             PrintPlayer();
-            //PrintEnterAndExit();
+
+            PrintMessageLog();
+        }
+
+        public void PrintMessageLog()
+        {
+            gc.messageLog.PrintMessages();
         }
 
         public void PrintEnterAndExit()
@@ -191,7 +211,7 @@ namespace Frosthold
             //PrintEnterAndExit() ;
             PrintMap();
             PrintPlayer();*/
-            Clear();
+            // Clear();
             PrintMap();
             PrintPlayer();
         }
